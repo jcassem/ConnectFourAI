@@ -1,4 +1,6 @@
-﻿namespace ConnectFour
+﻿using System;
+
+namespace ConnectFour
 {
     /// <summary>
     /// Connect four game.
@@ -24,9 +26,33 @@
         public ConnectFourGame()
         {
             _board = new Board(DEFAULT_BOARD_COLUMNS, DEFAULT_BOARD_ROWS);
-            _playerOne = new Player("Player One", PLAYER_ONE_GAME_PIECE);
-            _playerTwo = new Player("Player Two", PLAYER_TWO_GAME_PIECE);
+            _playerOne = new RandomPlayer("Player One", PLAYER_ONE_GAME_PIECE);
+            _playerTwo = new RandomPlayer("Player Two", PLAYER_TWO_GAME_PIECE);
             _playerOneNext = true;
+        }
+
+        public void PlayNextMove()
+        {
+            if (_playerOneNext)
+            {
+                _lastMove = _playerOne.MakeMove(_board);
+            }
+            else
+            {
+                _lastMove =  _playerTwo.MakeMove(_board);
+            }
+
+            _playerOneNext = !_playerOneNext;
+        }
+
+        public bool BoardIsFull()
+        {
+            return _board.IsFull();
+        }
+
+        public bool LastMoveWonGame()
+        {
+            return _board.HasConnectFour(_lastMove);
         }
 
         /// <summary>
@@ -35,8 +61,19 @@
         /// <returns>String representation of game board.</returns>
         public string GetPrintedBoard()
         {
-            return _board.ToString();
-        }
+            string printedBoard = "";
+            string printedRow;
+            for (int row = _board.GetRowCount() - 1; row >= 0; row--)
+            {
+                printedRow = "| ";
+                for (int col = 0; col < _board.GetColumnCount(); col++) 
+                {
+                    printedRow += _board.GetBoard()[col, row] == 0 ? "  | " : _board.GetBoard()[col, row].ToString() + " | ";
+                }
+                printedBoard += printedRow + "\n" + new String('-', printedRow.Length - 1) + "\n";
+            }
 
+            return printedBoard;
+        }
     }
 }

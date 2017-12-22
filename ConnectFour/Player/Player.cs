@@ -3,7 +3,7 @@
     /// <summary>
     /// Connect four player.
     /// </summary>
-    class Player
+    abstract class Player
     {
         public string Name { get; }
         public int GamePiece { get; }
@@ -18,5 +18,11 @@
             this.Name = Name;
             this.GamePiece = GamePiece;
         }
+
+        /// <summary>
+        /// Apply a game piece to board.
+        /// </summary>
+        /// <param name="board">Connect four game board.</param>
+        abstract public Point MakeMove(IBoard board);
     }
 }

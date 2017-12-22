@@ -12,11 +12,11 @@ namespace ConnectFour
 
         const int DEFAULT_BOARD_VALUE = 0;
 
-        private int[,] BoardGrid { get; }
+        private int[,] BoardGrid;
 
-        public int ColumnSize { get; }
+        public int ColumnSize;
 
-        public int RowSize { get; }
+        public int RowSize;
 
         public Board(int Columns, int Rows)
         {
@@ -44,7 +44,7 @@ namespace ConnectFour
         /// </summary>
         /// <param name="gamePiece">Game piece to add.</param>
         /// <param name="column">Column on the board to add it to.</param>
-        public void AddPiece(int gamePiece, int column)
+        public Point AddPiece(int gamePiece, int column)
         {
             if (IsColumnFull(column))
             {
@@ -56,14 +56,13 @@ namespace ConnectFour
                 throw new AddDefaultValueAsGamePieceException();
             }
 
-            for(int i=0; i<RowSize; i++)
+            int row = 0;
+            while(BoardGrid[column, row] != DEFAULT_BOARD_VALUE)
             {
-                if(BoardGrid[column,i] == DEFAULT_BOARD_VALUE)
-                {
-                    BoardGrid[column, i] = gamePiece;
-                    break;
-                }
+                row++;
             }
+            BoardGrid[column, row] = gamePiece;
+            return new Point(column, row);
         }
         
         /// <summary>
@@ -80,7 +79,7 @@ namespace ConnectFour
         /// Checks if the whole board is full of game pieces.
         /// </summary>
         /// <returns>Whether the board is full of game pieces.</returns>
-        public bool IsBoardFull()
+        public bool IsFull()
         {
             for (int i = 0; i < ColumnSize; i++)
             {
@@ -112,10 +111,11 @@ namespace ConnectFour
             int columnIndex = lastMove.ColumnIndex + 1;
             while (columnIndex < ColumnSize && count < FOUR_IN_A_ROW)
             {
-                if (BoardGrid[columnIndex, lastMove.RowIndex].Equals(lastPlayedGamePiece))
+                if (!BoardGrid[columnIndex, lastMove.RowIndex].Equals(lastPlayedGamePiece))
                 {
-                    count++;
+                    break;
                 }
+                count++;
                 columnIndex++;
             }
 
@@ -125,14 +125,16 @@ namespace ConnectFour
                 columnIndex = lastMove.ColumnIndex - 1;
                 while (columnIndex >= 0 && count < FOUR_IN_A_ROW)
                 {
-                    if (BoardGrid[columnIndex, lastMove.RowIndex].Equals(lastPlayedGamePiece))
+                    if (!BoardGrid[columnIndex, lastMove.RowIndex].Equals(lastPlayedGamePiece))
                     {
-                        count++;
+                        break;
                     }
+                    count++;
                     columnIndex--;
                 }
             }
 
+            Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) has horizonal:{count}");
             return count == FOUR_IN_A_ROW;
         }
 
@@ -155,10 +157,11 @@ namespace ConnectFour
             int rowIndex = lastMove.RowIndex + 1;
             while (rowIndex < RowSize && count < FOUR_IN_A_ROW)
             {
-                if (BoardGrid[lastMove.ColumnIndex, rowIndex].Equals(lastPlayedGamePiece))
+                if (!BoardGrid[lastMove.ColumnIndex, rowIndex].Equals(lastPlayedGamePiece))
                 {
-                    count++;
+                    break;
                 }
+                count++;
                 rowIndex++;
             }
 
@@ -168,14 +171,16 @@ namespace ConnectFour
                 rowIndex = lastMove.RowIndex - 1;
                 while (rowIndex >= 0 && count < FOUR_IN_A_ROW)
                 {
-                    if (BoardGrid[lastMove.ColumnIndex, rowIndex].Equals(lastPlayedGamePiece))
+                    if (!BoardGrid[lastMove.ColumnIndex, rowIndex].Equals(lastPlayedGamePiece))
                     {
-                        count++;
+                        break;
                     }
+                    count++;
                     rowIndex--;
                 }
             }
 
+            Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) vertical: {count}");
             return count == FOUR_IN_A_ROW;
         }
 
@@ -199,10 +204,11 @@ namespace ConnectFour
             int columnIndex = lastMove.ColumnIndex + 1;
             while (rowIndex < RowSize && columnIndex < ColumnSize && count < FOUR_IN_A_ROW)
             {
-                if (BoardGrid[columnIndex, rowIndex].Equals(lastPlayedGamePiece))
+                if (!BoardGrid[columnIndex, rowIndex].Equals(lastPlayedGamePiece))
                 {
-                    count++;
+                    break;
                 }
+                count++;
                 rowIndex++;
                 columnIndex++;
             }
@@ -212,17 +218,19 @@ namespace ConnectFour
                 // Check run going down to the left
                 rowIndex = lastMove.RowIndex - 1;
                 columnIndex = lastMove.ColumnIndex - 1;
-                while (rowIndex <= 0 && columnIndex >= 0 && count < FOUR_IN_A_ROW)
+                while (rowIndex >= 0 && columnIndex >= 0 && count < FOUR_IN_A_ROW)
                 {
-                    if (BoardGrid[columnIndex, rowIndex].Equals(lastPlayedGamePiece))
+                    if (!BoardGrid[columnIndex, rowIndex].Equals(lastPlayedGamePiece))
                     {
-                        count++;
+                        break;
                     }
+                    count++;
                     rowIndex--;
                     columnIndex--;
                 }
             }
 
+            Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) has forward diagonal: {count}");
             return count == FOUR_IN_A_ROW;
         }
 
@@ -246,10 +254,11 @@ namespace ConnectFour
             int columnIndex = lastMove.ColumnIndex - 1;
             while (rowIndex < RowSize && columnIndex >= 0 && count < FOUR_IN_A_ROW)
             {
-                if (BoardGrid[columnIndex, rowIndex].Equals(lastPlayedGamePiece))
+                if (!BoardGrid[columnIndex, rowIndex].Equals(lastPlayedGamePiece))
                 {
-                    count++;
+                    break;
                 }
+                count++;
                 rowIndex++;
                 columnIndex--;
             }
@@ -261,38 +270,45 @@ namespace ConnectFour
                 columnIndex = lastMove.ColumnIndex + 1;
                 while (rowIndex >= 0 && columnIndex < ColumnSize && count < FOUR_IN_A_ROW)
                 {
-                    if (BoardGrid[columnIndex, rowIndex].Equals(lastPlayedGamePiece))
+                    if (!BoardGrid[columnIndex, rowIndex].Equals(lastPlayedGamePiece))
                     {
-                        count++;
+                        break;
                     }
+                    count++;
                     rowIndex--;
                     columnIndex++;
                 }
             }
 
+            Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) has backward diagonal: {count}");
             return count == FOUR_IN_A_ROW;
         }
         
         /// <summary>
-        /// String representation of the game board.
+        /// Gets the integer array of the game board.
         /// </summary>
-        /// <returns>Game board string.</returns>
-        public override string ToString()
+        /// <returns>Game board.</returns>
+        public int[,] GetBoard()
         {
-            string printedBoard = "";
-            string printedRow;
+            return BoardGrid;
+        }
 
-            for (int col = 0; col < ColumnSize; col++)
-            {
-                printedRow = "| ";
-                for (int row = 0; row < RowSize; row++)
-                {
-                    printedRow += BoardGrid[col, row] == 0 ? "   | " : BoardGrid[col, row].ToString() + " | ";
-                }
-                printedBoard += printedRow + "\n" + new String('-', printedRow.Length - 1) + "\n";
-            }
+        /// <summary>
+        /// Returns number of columns in the board.
+        /// </summary>
+        /// <returns>Number of columns in board.</returns>
+        public int GetColumnCount()
+        {
+            return ColumnSize;
+        }
 
-            return printedBoard;
+        /// <summary>
+        /// Returns number of rows in the board.
+        /// </summary>
+        /// <returns>Number of rows in board.</returns>
+        public int GetRowCount()
+        {
+            return RowSize;
         }
     }
 }
