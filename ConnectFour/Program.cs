@@ -6,7 +6,9 @@ namespace ConnectFour
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            ConnectFourGame game = new ConnectFourGame();
+            Console.WriteLine(game.GetPrintedBoard());
+            Console.ReadKey();
         }
     }
 }
