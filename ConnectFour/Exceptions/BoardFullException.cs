@@ -7,12 +7,11 @@ namespace ConnectFour.Exceptions
     /// </summary>
     class BoardFullException : Exception
     {
-
         public BoardFullException()
         {
         }
 
-        public BoardFullException (string message)
+        public BoardFullException(string message)
             : base(message)
         {
         }

@@ -6,7 +6,7 @@ namespace ConnectFour
     /// <summary>
     /// Connect four game board.
     /// </summary>
-    class Board : IBoard
+    public class Board : IBoard
     {
         const int FOUR_IN_A_ROW = 4;
 
@@ -18,6 +18,11 @@ namespace ConnectFour
 
         public int RowSize;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="Columns">Number of columns in the board.</param>
+        /// <param name="Rows">Number of rows in the board.</param>
         public Board(int Columns, int Rows)
         {
             ColumnSize = Columns;
@@ -33,9 +38,9 @@ namespace ConnectFour
         /// <returns>Whether game board has gour of the same game pieces in a row.</returns>
         public bool HasConnectFour(Point lastMove)
         {
-            return HasHorizontalFour(lastMove) 
-                || HasVerticalFour(lastMove) 
-                || HasForwardDiagonalFour(lastMove) 
+            return HasHorizontalFour(lastMove)
+                || HasVerticalFour(lastMove)
+                || HasForwardDiagonalFour(lastMove)
                 || HasBackwardDiagonalFour(lastMove);
         }
 
@@ -51,20 +56,20 @@ namespace ConnectFour
                 throw new BoardColumnFullException($"Column index: {column}");
             }
 
-            if(gamePiece == DEFAULT_BOARD_VALUE)
+            if (gamePiece == DEFAULT_BOARD_VALUE)
             {
                 throw new AddDefaultValueAsGamePieceException();
             }
 
             int row = 0;
-            while(BoardGrid[column, row] != DEFAULT_BOARD_VALUE)
+            while (BoardGrid[column, row] != DEFAULT_BOARD_VALUE)
             {
                 row++;
             }
             BoardGrid[column, row] = gamePiece;
             return new Point(column, row);
         }
-        
+
         /// <summary>
         /// Checks if a column on the game board is full of game pieces.
         /// </summary>
@@ -74,7 +79,7 @@ namespace ConnectFour
         {
             return BoardGrid[column, RowSize - 1] != DEFAULT_BOARD_VALUE;
         }
-        
+
         /// <summary>
         /// Checks if the whole board is full of game pieces.
         /// </summary>
@@ -283,14 +288,14 @@ namespace ConnectFour
             Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) has backward diagonal: {count}");
             return count == FOUR_IN_A_ROW;
         }
-        
+
         /// <summary>
         /// Gets the integer array of the game board.
         /// </summary>
         /// <returns>Game board.</returns>
         public int[,] GetBoard()
         {
-            return BoardGrid;
+            return BoardGrid.Clone() as int[,];
         }
 
         /// <summary>

@@ -6,8 +6,13 @@ namespace ConnectFour
     /// <summary>
     /// Connect four player - picks where to go randomly.
     /// </summary>
-    class RandomPlayer : Player
+    public class RandomPlayer : Player
     {
+        /// <summary>
+        /// Random Player constructor.
+        /// </summary>
+        /// <param name="Name">Players name.</param>
+        /// <param name="GamePiece">Game piece.</param>
         public RandomPlayer(string Name, int GamePiece) : base(Name, GamePiece)
         {
         }
@@ -29,7 +34,7 @@ namespace ConnectFour
             while (board.IsColumnFull(nextColumn))
             {
                 nextColumn++;
-                if(nextColumn >= board.GetColumnCount())
+                if (nextColumn >= board.GetColumnCount())
                 {
                     nextColumn = 0;
                 }

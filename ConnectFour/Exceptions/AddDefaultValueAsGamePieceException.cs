@@ -7,7 +7,6 @@ namespace ConnectFour.Exceptions
     /// </summary>
     class AddDefaultValueAsGamePieceException : Exception
     {
-
         public AddDefaultValueAsGamePieceException()
         {
         }

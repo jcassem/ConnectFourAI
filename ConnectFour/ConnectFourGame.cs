@@ -5,14 +5,14 @@ namespace ConnectFour
     /// <summary>
     /// Connect four game.
     /// </summary>
-    class ConnectFourGame
+    public class ConnectFourGame
     {
         const int DEFAULT_BOARD_COLUMNS = 7;
         const int DEFAULT_BOARD_ROWS = 6;
 
         const int PLAYER_ONE_GAME_PIECE = 1;
         const int PLAYER_TWO_GAME_PIECE = 2;
-        
+
         private Player _playerOne;
         private Player _playerTwo;
         private Board _board;
@@ -31,6 +31,9 @@ namespace ConnectFour
             _playerOneNext = true;
         }
 
+        /// <summary>
+        /// Play automated games next move.
+        /// </summary>
         public void PlayNextMove()
         {
             if (_playerOneNext)
@@ -39,17 +42,25 @@ namespace ConnectFour
             }
             else
             {
-                _lastMove =  _playerTwo.MakeMove(_board);
+                _lastMove = _playerTwo.MakeMove(_board);
             }
 
             _playerOneNext = !_playerOneNext;
         }
 
+        /// <summary>
+        /// Check if the game board is full of game pieces.
+        /// </summary>
+        /// <returns>Whether the game board is full.</returns>
         public bool BoardIsFull()
         {
             return _board.IsFull();
         }
 
+        /// <summary>
+        /// Check if the last move resulted in a connect four.
+        /// </summary>
+        /// <returns>Board has connect four.</returns>
         public bool LastMoveWonGame()
         {
             return _board.HasConnectFour(_lastMove);
@@ -66,7 +77,7 @@ namespace ConnectFour
             for (int row = _board.GetRowCount() - 1; row >= 0; row--)
             {
                 printedRow = "| ";
-                for (int col = 0; col < _board.GetColumnCount(); col++) 
+                for (int col = 0; col < _board.GetColumnCount(); col++)
                 {
                     printedRow += _board.GetBoard()[col, row] == 0 ? "  | " : _board.GetBoard()[col, row].ToString() + " | ";
                 }

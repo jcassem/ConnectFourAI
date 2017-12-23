@@ -3,7 +3,7 @@
     /// <summary>
     /// Connect four player.
     /// </summary>
-    abstract class Player
+    public abstract class Player
     {
         public string Name { get; }
         public int GamePiece { get; }

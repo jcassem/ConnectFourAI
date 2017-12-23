@@ -3,7 +3,7 @@
     /// <summary>
     /// Interface for a Connect four game board.
     /// </summary>
-    interface IBoard
+    public interface IBoard
     {
         /// <summary>
         /// Checks if board has four of the same game pieces in a row.
@@ -19,7 +19,7 @@
         /// <param name="gamePiece">Game piece to add.</param>
         /// <param name="column">Column on the board to add it to.</param>
         Point AddPiece(int gamePiece, int column);
-        
+
         /// <summary>
         /// Checks if a column on the game board is full of game pieces.
         /// </summary>

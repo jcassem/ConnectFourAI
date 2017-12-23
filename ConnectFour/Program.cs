@@ -12,7 +12,7 @@ namespace ConnectFour
 
             ConnectFourGame game = new ConnectFourGame();
             Console.WriteLine(game.GetPrintedBoard());
-            
+
             Console.WriteLine("Starting game:");
             bool gameOver = false;
 
@@ -35,7 +35,7 @@ namespace ConnectFour
                 Console.WriteLine(game.GetPrintedBoard());
                 Thread.Sleep(500);
             }
-            
+
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
         }
