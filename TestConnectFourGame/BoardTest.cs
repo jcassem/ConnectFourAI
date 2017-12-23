@@ -1,4 +1,5 @@
 using ConnectFour;
+using ConnectFourGame;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestConnectFourGame
@@ -46,7 +47,7 @@ namespace TestConnectFourGame
 
             for (int row = 0; row < BOARD_ROWS; row++)
             {
-                board.AddPiece(PLAYER_ONE_GAME_PIECE, column);
+                board.AddPiece(new GameMove(PLAYER_ONE_GAME_PIECE, column));
             }
 
             Assert.IsTrue(board.IsColumnFull(column));
@@ -63,7 +64,7 @@ namespace TestConnectFourGame
 
             for (int row = 0; row < BOARD_ROWS - 1; row++)
             {
-                board.AddPiece(PLAYER_ONE_GAME_PIECE, column);
+                board.AddPiece(new GameMove(PLAYER_ONE_GAME_PIECE, column));
             }
 
             Assert.IsFalse(board.IsColumnFull(column));
@@ -80,7 +81,7 @@ namespace TestConnectFourGame
             {
                 for (int row = 0; row < BOARD_ROWS; row++)
                 {
-                    board.AddPiece(PLAYER_ONE_GAME_PIECE, col);
+                    board.AddPiece(new GameMove(PLAYER_ONE_GAME_PIECE, col));
                 }
             }
             Assert.IsTrue(board.IsFull());
@@ -97,7 +98,7 @@ namespace TestConnectFourGame
             {
                 for (int row = 0; row < BOARD_ROWS - 1; row++)
                 {
-                    board.AddPiece(PLAYER_ONE_GAME_PIECE, col);
+                    board.AddPiece(new GameMove(PLAYER_ONE_GAME_PIECE, col));
                 }
             }
             Assert.IsFalse(board.IsFull());

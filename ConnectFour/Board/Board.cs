@@ -1,4 +1,5 @@
 ﻿using ConnectFour.Exceptions;
+using ConnectFourGame;
 using System;
 
 namespace ConnectFour
@@ -49,25 +50,25 @@ namespace ConnectFour
         /// </summary>
         /// <param name="gamePiece">Game piece to add.</param>
         /// <param name="column">Column on the board to add it to.</param>
-        public Point AddPiece(int gamePiece, int column)
+        public Point AddPiece(GameMove playersMove)
         {
-            if (IsColumnFull(column))
+            if (IsColumnFull(playersMove.boardColumn))
             {
-                throw new BoardColumnFullException($"Column index: {column}");
+                throw new BoardColumnFullException($"Column index: {playersMove.boardColumn}");
             }
 
-            if (gamePiece == DEFAULT_BOARD_VALUE)
+            if (playersMove.gamePiece == DEFAULT_BOARD_VALUE)
             {
                 throw new AddDefaultValueAsGamePieceException();
             }
 
             int row = 0;
-            while (BoardGrid[column, row] != DEFAULT_BOARD_VALUE)
+            while (BoardGrid[playersMove.boardColumn, row] != DEFAULT_BOARD_VALUE)
             {
                 row++;
             }
-            BoardGrid[column, row] = gamePiece;
-            return new Point(column, row);
+            BoardGrid[playersMove.boardColumn, row] = playersMove.gamePiece;
+            return new Point(playersMove.boardColumn, row);
         }
 
         /// <summary>

@@ -1,4 +1,6 @@
-﻿namespace ConnectFour
+﻿using ConnectFourGame;
+
+namespace ConnectFour
 {
     /// <summary>
     /// Interface for a Connect four game board.
@@ -15,10 +17,10 @@
 
         /// <summary>
         /// Adds a players game piece representation to the board.
+        /// <param name="playersMove">Players game piece and column.</param>
         /// </summary>
-        /// <param name="gamePiece">Game piece to add.</param>
-        /// <param name="column">Column on the board to add it to.</param>
-        Point AddPiece(int gamePiece, int column);
+        /// <param name="playersMove">Players column of choice and game piece.</param>
+        Point AddPiece(GameMove playersMove);
 
         /// <summary>
         /// Checks if a column on the game board is full of game pieces.

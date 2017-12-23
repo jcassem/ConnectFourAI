@@ -1,4 +1,5 @@
 ﻿using ConnectFour.Exceptions;
+using ConnectFourGame;
 using System;
 
 namespace ConnectFour
@@ -40,7 +41,7 @@ namespace ConnectFour
                 }
             }
 
-            return board.AddPiece(GamePiece, nextColumn);
+            return board.AddPiece(new GameMove(nextColumn, GamePiece));
         }
     }
 }

@@ -18,6 +18,7 @@ namespace ConnectFour
         private Board _board;
 
         private bool _playerOneNext;
+        private int _moveCount;
         private Point _lastMove;
 
         /// <summary>
@@ -29,6 +30,7 @@ namespace ConnectFour
             _playerOne = new RandomPlayer("Player One", PLAYER_ONE_GAME_PIECE);
             _playerTwo = new RandomPlayer("Player Two", PLAYER_TWO_GAME_PIECE);
             _playerOneNext = true;
+            _moveCount = 0;
         }
 
         /// <summary>
@@ -46,6 +48,7 @@ namespace ConnectFour
             }
 
             _playerOneNext = !_playerOneNext;
+            _moveCount++;
         }
 
         /// <summary>
