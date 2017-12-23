@@ -73,16 +73,29 @@ namespace ConnectFour
         public string GetPrintedBoard()
         {
             string printedBoard = "";
-            string printedRow;
+            string printedRow = "";
+            string gamePiece = "";
+
             for (int row = _board.GetRowCount() - 1; row >= 0; row--)
             {
-                printedRow = "| ";
+                printedRow = $"{row}: > ";
                 for (int col = 0; col < _board.GetColumnCount(); col++)
                 {
-                    printedRow += _board.GetBoard()[col, row] == 0 ? "  | " : _board.GetBoard()[col, row].ToString() + " | ";
+                    gamePiece = _board.GetBoard()[col, row].Equals(PLAYER_ONE_GAME_PIECE) ? "X"
+                        : _board.GetBoard()[col, row].Equals(PLAYER_TWO_GAME_PIECE) ? "O"
+                        : " ";
+                    printedRow += gamePiece + " | ";
                 }
-                printedBoard += printedRow + "\n" + new String('-', printedRow.Length - 1) + "\n";
+                printedBoard += printedRow + "\n   > " + new String('-', printedRow.Length - 5) + "\n";
             }
+
+            printedBoard += "    ^" + new String('^', printedRow.Length - 5) + "\n";
+            printedBoard += "     ";
+            for (int col = 0; col < _board.GetColumnCount(); col++)
+            {
+                printedBoard += $"{col} | ";
+            }
+            printedBoard += "\n";
 
             return printedBoard;
         }

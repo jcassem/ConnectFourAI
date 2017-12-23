@@ -8,9 +8,9 @@ namespace ConnectFour
     /// </summary>
     public class Board : IBoard
     {
-        const int FOUR_IN_A_ROW = 4;
+        public const int FOUR_IN_A_ROW = 4;
 
-        const int DEFAULT_BOARD_VALUE = 0;
+        public const int DEFAULT_BOARD_VALUE = 0;
 
         private int[,] BoardGrid;
 
