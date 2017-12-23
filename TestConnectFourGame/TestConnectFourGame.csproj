@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConnectFour\ConnectFour.csproj" />
+    <ProjectReference Include="..\ConnectFour\ConnectFourGame.csproj" />
   </ItemGroup>
 
 </Project>

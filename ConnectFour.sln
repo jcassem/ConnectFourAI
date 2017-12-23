@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectFour", "ConnectFour\ConnectFour.csproj", "{4CFB4468-D6EA-4FE2-AD39-A5FDA8F673AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectFourGame", "ConnectFour\ConnectFourGame.csproj", "{4CFB4468-D6EA-4FE2-AD39-A5FDA8F673AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConnectFourGame", "TestConnectFourGame\TestConnectFourGame.csproj", "{BF1A873A-39FC-439A-B4CC-5A79FFD9E3B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConnectFourGame", "TestConnectFourGame\TestConnectFourGame.csproj", "{BF1A873A-39FC-439A-B4CC-5A79FFD9E3B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
