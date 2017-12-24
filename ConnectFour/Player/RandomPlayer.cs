@@ -1,8 +1,8 @@
-﻿using ConnectFour.Exceptions;
-using ConnectFourGame;
-using System;
+﻿using System;
+using ConnectFourGame.Board;
+using ConnectFourGame.Exceptions;
 
-namespace ConnectFour
+namespace ConnectFourGame.Player
 {
     /// <summary>
     /// Connect four player - picks where to go randomly.
@@ -12,9 +12,9 @@ namespace ConnectFour
         /// <summary>
         /// Random Player constructor.
         /// </summary>
-        /// <param name="Name">Players name.</param>
-        /// <param name="GamePiece">Game piece.</param>
-        public RandomPlayer(string Name, int GamePiece) : base(Name, GamePiece)
+        /// <param name="name">Players name.</param>
+        /// <param name="gamePiece">Game piece.</param>
+        public RandomPlayer(string name, int gamePiece) : base(name, gamePiece)
         {
         }
 
@@ -41,7 +41,7 @@ namespace ConnectFour
                 }
             }
 
-            return board.AddPiece(new GameMove(nextColumn, GamePiece));
+            return board.AddPiece(new GameMove(GamePiece, nextColumn));
         }
     }
 }

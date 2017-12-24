@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace ConnectFour
+namespace ConnectFourGame
 {
     class Program
     {

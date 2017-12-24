@@ -1,6 +1,4 @@
-﻿using ConnectFourGame;
-
-namespace ConnectFour
+﻿namespace ConnectFourGame.Board
 {
     /// <summary>
     /// Interface for a Connect four game board.

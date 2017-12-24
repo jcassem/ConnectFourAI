@@ -5,9 +5,9 @@
     /// </summary>
     public class GameMove
     {
-        public int gamePiece { get; }
+        public int GamePiece { get; }
 
-        public int boardColumn { get; }
+        public int BoardColumn { get; }
 
         /// <summary>
         /// Constructor.
@@ -16,8 +16,8 @@
         /// <param name="boardColumn">Column on board for the move.</param>
         public GameMove(int gamePiece, int boardColumn)
         {
-            this.gamePiece = gamePiece;
-            this.boardColumn = boardColumn;
+            GamePiece = gamePiece;
+            BoardColumn = boardColumn;
         }
     }
 }

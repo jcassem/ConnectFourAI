@@ -1,21 +1,22 @@
 ﻿using System;
+using ConnectFourGame.Player;
 
-namespace ConnectFour
+namespace ConnectFourGame
 {
     /// <summary>
     /// Connect four game.
     /// </summary>
     public class ConnectFourGame
     {
-        const int DEFAULT_BOARD_COLUMNS = 7;
-        const int DEFAULT_BOARD_ROWS = 6;
+        private const int DefaultBoardColumns = 7;
+        public const int DefaultBoardRows = 6;
 
-        const int PLAYER_ONE_GAME_PIECE = 1;
-        const int PLAYER_TWO_GAME_PIECE = 2;
+        const int PlayerOneGamePiece = 1;
+        const int PlayerTwoGamePiece = 2;
 
-        private Player _playerOne;
-        private Player _playerTwo;
-        private Board _board;
+        private readonly Player.Player _playerOne;
+        private readonly Player.Player _playerTwo;
+        private readonly Board.Board _board;
 
         private bool _playerOneNext;
         private int _moveCount;
@@ -26,9 +27,9 @@ namespace ConnectFour
         /// </summary>
         public ConnectFourGame()
         {
-            _board = new Board(DEFAULT_BOARD_COLUMNS, DEFAULT_BOARD_ROWS);
-            _playerOne = new RandomPlayer("Player One", PLAYER_ONE_GAME_PIECE);
-            _playerTwo = new RandomPlayer("Player Two", PLAYER_TWO_GAME_PIECE);
+            _board = new Board.Board(DefaultBoardColumns, DefaultBoardRows);
+            _playerOne = new RandomPlayer("Player One", PlayerOneGamePiece);
+            _playerTwo = new RandomPlayer("Player Two", PlayerTwoGamePiece);
             _playerOneNext = true;
             _moveCount = 0;
         }
@@ -77,15 +78,14 @@ namespace ConnectFour
         {
             string printedBoard = "";
             string printedRow = "";
-            string gamePiece = "";
 
             for (int row = _board.GetRowCount() - 1; row >= 0; row--)
             {
                 printedRow = $"{row}: > ";
                 for (int col = 0; col < _board.GetColumnCount(); col++)
                 {
-                    gamePiece = _board.GetBoard()[col, row].Equals(PLAYER_ONE_GAME_PIECE) ? "X"
-                        : _board.GetBoard()[col, row].Equals(PLAYER_TWO_GAME_PIECE) ? "O"
+                    var gamePiece = _board.GetBoard()[col, row].Equals(PlayerOneGamePiece) ? "X"
+                        : _board.GetBoard()[col, row].Equals(PlayerTwoGamePiece) ? "O"
                         : " ";
                     printedRow += gamePiece + " | ";
                 }

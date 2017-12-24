@@ -1,4 +1,4 @@
-﻿namespace ConnectFour
+﻿namespace ConnectFourGame
 {
     /// <summary>
     /// Column, Row co-ordinates as a point for the game board.
@@ -11,12 +11,12 @@
         /// <summary>
         /// Constructor for game board co-ordinates.
         /// </summary>
-        /// <param name="ColumnIndex">Column index co-ordinate.</param>
-        /// <param name="RowIndex">Row index co-ordinate.</param>
-        public Point(int ColumnIndex, int RowIndex)
+        /// <param name="columnIndex">Column index co-ordinate.</param>
+        /// <param name="rowIndex">Row index co-ordinate.</param>
+        public Point(int columnIndex, int rowIndex)
         {
-            this.ColumnIndex = ColumnIndex;
-            this.RowIndex = RowIndex;
+            ColumnIndex = columnIndex;
+            RowIndex = rowIndex;
         }
     }
 }

@@ -1,15 +1,18 @@
-﻿using ConnectFour;
-using ConnectFourGame;
+﻿using ConnectFourGame;
+using ConnectFourGame.Board;
 
-namespace TestConnectFourGame
+namespace TestConnectFourGame.Utils
 {
+    /// <summary>
+    /// Create connect four game boards.
+    /// </summary>
     class BoardCreator
     {
-        public const int BOARD_COLUMNS = 7;
-        public const int BOARD_ROWS = 6;
+        public const int BoardColumns = 7;
+        public const int BoardRows = 6;
 
-        public const int PLAYER_ONE_GAME_PIECE = 1;
-        public const int PLAYER_TWO_GAME_PIECE = 2;
+        public const int PlayerOneGamePiece = 1;
+        public const int PlayerTwoGamePiece = 2;
 
         /// <summary>
         /// Returns a blank game board.
@@ -17,7 +20,7 @@ namespace TestConnectFourGame
         /// <returns>Blank game board.</returns>
         public static IBoard GetBlankBoard()
         {
-            return new Board(BOARD_COLUMNS, BOARD_ROWS);
+            return new Board(BoardColumns, BoardRows);
         }
 
         /// <summary>
@@ -27,7 +30,7 @@ namespace TestConnectFourGame
         /// <returns>Created board.</returns>
         public static IBoard GetBoardWithHorizontalLine(int lineLength)
         {
-            IBoard board = new Board(BOARD_COLUMNS, BOARD_ROWS);
+            IBoard board = new Board(BoardColumns, BoardRows);
 
             AddHorizontalLineToBoard(lineLength, board);
 
@@ -46,7 +49,7 @@ namespace TestConnectFourGame
             
             for (int i = 0; i < lineLength; i++)
             {
-                lastMove = board.AddPiece(new GameMove(PLAYER_ONE_GAME_PIECE, i));
+                lastMove = board.AddPiece(new GameMove(PlayerOneGamePiece, i));
             }
 
             return lastMove;
@@ -59,7 +62,7 @@ namespace TestConnectFourGame
         /// <returns>Created board.</returns>
         public static IBoard GetBoardWithVerticalLine(int lineLength)
         {
-            IBoard board = new Board(BOARD_COLUMNS, BOARD_ROWS);
+            IBoard board = new Board(BoardColumns, BoardRows);
 
             AddVerticalLineToBoard(lineLength, board);
 
@@ -78,7 +81,7 @@ namespace TestConnectFourGame
             
             for (int i = 0; i < lineLength; i++)
             {
-                lastMove = board.AddPiece(new GameMove(PLAYER_ONE_GAME_PIECE, 0));
+                lastMove = board.AddPiece(new GameMove(PlayerOneGamePiece, 0));
             }
 
             return lastMove;
@@ -91,7 +94,7 @@ namespace TestConnectFourGame
         /// <returns>Created board.</returns>
         public static IBoard GetBoardWithForwardDiagonalLine(int lineLength)
         {
-            IBoard board = new Board(BOARD_COLUMNS, BOARD_ROWS);
+            IBoard board = new Board(BoardColumns, BoardRows);
 
             AddForwardDiagonalLineToBoard(lineLength, board);
 
@@ -113,14 +116,14 @@ namespace TestConnectFourGame
             {
                 for (int j = 0; j < i; j++)
                 {
-                    board.AddPiece(new GameMove(PLAYER_TWO_GAME_PIECE, i));
+                    board.AddPiece(new GameMove(PlayerTwoGamePiece, i));
                 }
             }
 
             // Add first player pieces to form requested line run
             for (int i = 0; i < lineLength; i++)
             {
-                lastMove = board.AddPiece(new GameMove(PLAYER_ONE_GAME_PIECE, i));
+                lastMove = board.AddPiece(new GameMove(PlayerOneGamePiece, i));
             }
 
             return lastMove;
@@ -133,7 +136,7 @@ namespace TestConnectFourGame
         /// <returns>Created board.</returns>
         public static IBoard GetBoardWithBackwardDiagonalLine(int lineLength)
         {
-            IBoard board = new Board(BOARD_COLUMNS, BOARD_ROWS);
+            IBoard board = new Board(BoardColumns, BoardRows);
 
             AddBackwardDiagonalLineToBoard(lineLength, board);
 
@@ -155,14 +158,14 @@ namespace TestConnectFourGame
             {
                 for (int j = 0; j < lineLength - i; j++)
                 {
-                    board.AddPiece(new GameMove(PLAYER_TWO_GAME_PIECE, i));
+                    board.AddPiece(new GameMove(PlayerTwoGamePiece, i));
                 }
             }
 
             // Add first player pieces to form requested line run
             for (int i = 0; i < lineLength; i++)
             {
-                lastMove = board.AddPiece(new GameMove(PLAYER_ONE_GAME_PIECE, i));
+                lastMove = board.AddPiece(new GameMove(PlayerOneGamePiece, i));
             }
 
             return lastMove;

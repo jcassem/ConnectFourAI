@@ -1,5 +1,4 @@
-﻿using ConnectFour;
-using ConnectFour.Exceptions;
+﻿using ConnectFourGame.Exceptions;
 
 namespace ConnectFourGame.Board
 {
@@ -32,14 +31,14 @@ namespace ConnectFourGame.Board
         /// <returns>Number of connect Xs on a board.</returns>
         public int NumberOfPiecesInARowOnBoardFromPotnetialMove(int piecesInARow, GameMove potentialMove, IBoard board)
         {
-            if (board.IsColumnFull(potentialMove.boardColumn))
+            if (board.IsColumnFull(potentialMove.BoardColumn))
             {
-                throw new BoardColumnFullException("Column:" + potentialMove.boardColumn);
+                throw new BoardColumnFullException("Column:" + potentialMove.BoardColumn);
             }
 
             var clonedBoard = board.Clone();
             clonedBoard.AddPiece(potentialMove);
-            return NumberOfPiecesInARowOnBoard(piecesInARow, potentialMove.gamePiece, clonedBoard);
+            return NumberOfPiecesInARowOnBoard(piecesInARow, potentialMove.GamePiece, clonedBoard);
         }
 
         /// <summary>
@@ -54,13 +53,10 @@ namespace ConnectFourGame.Board
             int[,] gameBoard = board.GetBoard();
             int totalRunCount = 0;
 
-            int col;
-            int runCount;
-
             for (int row = 0; row < board.GetRowCount(); row++)
             {
-                runCount = 0;
-                col = 0;
+                int runCount = 0;
+                var col = 0;
 
                 while (gameBoard[col, row].Equals(gamePiece) && col < board.GetColumnCount())
                 {
@@ -72,8 +68,6 @@ namespace ConnectFourGame.Board
                 {
                     totalRunCount++;
                 }
-
-                col++;
             }
 
             return totalRunCount;
@@ -88,16 +82,13 @@ namespace ConnectFourGame.Board
         /// <returns>Number of connect Xs in a vertical row on a board.</returns>
         private int NumberOfVerticalRunsOnBoard(int piecesInARow, int gamePiece, IBoard board)
         {
-            int[,] gameBoard = board.GetBoard();
-            int totalRunCount = 0;
-
-            int row;
-            int runCount;
+            var gameBoard = board.GetBoard();
+            var totalRunCount = 0;
 
             for (int col = 0; col < board.GetColumnCount(); col++)
             {
-                runCount = 0;
-                row = 0;
+                var runCount = 0;
+                var row = 0;
 
                 while (gameBoard[col, row].Equals(gamePiece) && row < board.GetRowCount())
                 {
@@ -109,8 +100,6 @@ namespace ConnectFourGame.Board
                 {
                     totalRunCount++;
                 }
-
-                row++;
             }
 
             return totalRunCount;

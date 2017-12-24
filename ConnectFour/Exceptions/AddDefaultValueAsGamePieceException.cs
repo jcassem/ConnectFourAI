@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConnectFour.Exceptions
+namespace ConnectFourGame.Exceptions
 {
     /// <summary>
     /// Exception for an attempt to add the default board value as a game piece.

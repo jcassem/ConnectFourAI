@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConnectFour.Exceptions
+namespace ConnectFourGame.Exceptions
 {
     /// <summary>
     /// Exception for the board being full.

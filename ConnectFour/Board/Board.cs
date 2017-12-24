@@ -1,19 +1,18 @@
-﻿using ConnectFour.Exceptions;
-using ConnectFourGame;
-using System;
+﻿using System;
+using ConnectFourGame.Exceptions;
 
-namespace ConnectFour
+namespace ConnectFourGame.Board
 {
     /// <summary>
     /// Connect four game board.
     /// </summary>
     public class Board : IBoard
     {
-        public const int FOUR_IN_A_ROW = 4;
+        public const int FourInARow = 4;
 
-        public const int DEFAULT_BOARD_VALUE = 0;
+        public const int DefaultBoardValue = 0;
 
-        private int[,] BoardGrid;
+        private int[,] _boardGrid;
 
         public int ColumnSize;
 
@@ -22,13 +21,13 @@ namespace ConnectFour
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="Columns">Number of columns in the board.</param>
-        /// <param name="Rows">Number of rows in the board.</param>
-        public Board(int Columns, int Rows)
+        /// <param name="columns">Number of columns in the board.</param>
+        /// <param name="rows">Number of rows in the board.</param>
+        public Board(int columns, int rows)
         {
-            ColumnSize = Columns;
-            RowSize = Rows;
-            BoardGrid = new int[ColumnSize, RowSize];
+            ColumnSize = columns;
+            RowSize = rows;
+            _boardGrid = new int[ColumnSize, RowSize];
         }
 
         /// <summary>
@@ -48,27 +47,26 @@ namespace ConnectFour
         /// <summary>
         /// Adds a players game piece representation to the board.
         /// </summary>
-        /// <param name="gamePiece">Game piece to add.</param>
-        /// <param name="column">Column on the board to add it to.</param>
+        /// <param name="playersMove">Game piece and column to add.</param>
         public Point AddPiece(GameMove playersMove)
         {
-            if (IsColumnFull(playersMove.boardColumn))
+            if (IsColumnFull(playersMove.BoardColumn))
             {
-                throw new BoardColumnFullException($"Column index: {playersMove.boardColumn}");
+                throw new BoardColumnFullException($"Column index: {playersMove.BoardColumn}");
             }
 
-            if (playersMove.gamePiece == DEFAULT_BOARD_VALUE)
+            if (playersMove.GamePiece == DefaultBoardValue)
             {
                 throw new AddDefaultValueAsGamePieceException();
             }
 
             int row = 0;
-            while (BoardGrid[playersMove.boardColumn, row] != DEFAULT_BOARD_VALUE)
+            while (_boardGrid[playersMove.BoardColumn, row] != DefaultBoardValue)
             {
                 row++;
             }
-            BoardGrid[playersMove.boardColumn, row] = playersMove.gamePiece;
-            return new Point(playersMove.boardColumn, row);
+            _boardGrid[playersMove.BoardColumn, row] = playersMove.GamePiece;
+            return new Point(playersMove.BoardColumn, row);
         }
 
         /// <summary>
@@ -78,7 +76,7 @@ namespace ConnectFour
         /// <returns>Whether column on game board is full.</returns>
         public bool IsColumnFull(int column)
         {
-            return BoardGrid[column, RowSize - 1] != DEFAULT_BOARD_VALUE;
+            return _boardGrid[column, RowSize - 1] != DefaultBoardValue;
         }
 
         /// <summary>
@@ -110,14 +108,14 @@ namespace ConnectFour
                 return false;
             }
 
-            int lastPlayedGamePiece = BoardGrid[lastMove.ColumnIndex, lastMove.RowIndex];
+            int lastPlayedGamePiece = _boardGrid[lastMove.ColumnIndex, lastMove.RowIndex];
             int count = 1;
 
             // Check run going right
             int columnIndex = lastMove.ColumnIndex + 1;
-            while (columnIndex < ColumnSize && count < FOUR_IN_A_ROW)
+            while (columnIndex < ColumnSize && count < FourInARow)
             {
-                if (!BoardGrid[columnIndex, lastMove.RowIndex].Equals(lastPlayedGamePiece))
+                if (!_boardGrid[columnIndex, lastMove.RowIndex].Equals(lastPlayedGamePiece))
                 {
                     break;
                 }
@@ -125,13 +123,13 @@ namespace ConnectFour
                 columnIndex++;
             }
 
-            if (count != FOUR_IN_A_ROW)
+            if (count != FourInARow)
             {
                 // Check run going left
                 columnIndex = lastMove.ColumnIndex - 1;
-                while (columnIndex >= 0 && count < FOUR_IN_A_ROW)
+                while (columnIndex >= 0 && count < FourInARow)
                 {
-                    if (!BoardGrid[columnIndex, lastMove.RowIndex].Equals(lastPlayedGamePiece))
+                    if (!_boardGrid[columnIndex, lastMove.RowIndex].Equals(lastPlayedGamePiece))
                     {
                         break;
                     }
@@ -141,7 +139,7 @@ namespace ConnectFour
             }
 
             Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) has horizonal:{count}");
-            return count == FOUR_IN_A_ROW;
+            return count == FourInARow;
         }
 
         /// <summary>
@@ -156,14 +154,14 @@ namespace ConnectFour
                 return false;
             }
 
-            int lastPlayedGamePiece = BoardGrid[lastMove.ColumnIndex, lastMove.RowIndex];
+            int lastPlayedGamePiece = _boardGrid[lastMove.ColumnIndex, lastMove.RowIndex];
             int count = 1;
 
             // Check run going upward
             int rowIndex = lastMove.RowIndex + 1;
-            while (rowIndex < RowSize && count < FOUR_IN_A_ROW)
+            while (rowIndex < RowSize && count < FourInARow)
             {
-                if (!BoardGrid[lastMove.ColumnIndex, rowIndex].Equals(lastPlayedGamePiece))
+                if (!_boardGrid[lastMove.ColumnIndex, rowIndex].Equals(lastPlayedGamePiece))
                 {
                     break;
                 }
@@ -171,13 +169,13 @@ namespace ConnectFour
                 rowIndex++;
             }
 
-            if (count != FOUR_IN_A_ROW)
+            if (count != FourInARow)
             {
                 // Check run going downwards
                 rowIndex = lastMove.RowIndex - 1;
-                while (rowIndex >= 0 && count < FOUR_IN_A_ROW)
+                while (rowIndex >= 0 && count < FourInARow)
                 {
-                    if (!BoardGrid[lastMove.ColumnIndex, rowIndex].Equals(lastPlayedGamePiece))
+                    if (!_boardGrid[lastMove.ColumnIndex, rowIndex].Equals(lastPlayedGamePiece))
                     {
                         break;
                     }
@@ -187,7 +185,7 @@ namespace ConnectFour
             }
 
             Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) vertical: {count}");
-            return count == FOUR_IN_A_ROW;
+            return count == FourInARow;
         }
 
         /// <summary>
@@ -202,15 +200,15 @@ namespace ConnectFour
                 return false;
             }
 
-            int lastPlayedGamePiece = BoardGrid[lastMove.ColumnIndex, lastMove.RowIndex];
+            int lastPlayedGamePiece = _boardGrid[lastMove.ColumnIndex, lastMove.RowIndex];
             int count = 1;
 
             // Check run going up to the right
             int rowIndex = lastMove.RowIndex + 1;
             int columnIndex = lastMove.ColumnIndex + 1;
-            while (rowIndex < RowSize && columnIndex < ColumnSize && count < FOUR_IN_A_ROW)
+            while (rowIndex < RowSize && columnIndex < ColumnSize && count < FourInARow)
             {
-                if (!BoardGrid[columnIndex, rowIndex].Equals(lastPlayedGamePiece))
+                if (!_boardGrid[columnIndex, rowIndex].Equals(lastPlayedGamePiece))
                 {
                     break;
                 }
@@ -219,14 +217,14 @@ namespace ConnectFour
                 columnIndex++;
             }
 
-            if (count != FOUR_IN_A_ROW)
+            if (count != FourInARow)
             {
                 // Check run going down to the left
                 rowIndex = lastMove.RowIndex - 1;
                 columnIndex = lastMove.ColumnIndex - 1;
-                while (rowIndex >= 0 && columnIndex >= 0 && count < FOUR_IN_A_ROW)
+                while (rowIndex >= 0 && columnIndex >= 0 && count < FourInARow)
                 {
-                    if (!BoardGrid[columnIndex, rowIndex].Equals(lastPlayedGamePiece))
+                    if (!_boardGrid[columnIndex, rowIndex].Equals(lastPlayedGamePiece))
                     {
                         break;
                     }
@@ -237,7 +235,7 @@ namespace ConnectFour
             }
 
             Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) has forward diagonal: {count}");
-            return count == FOUR_IN_A_ROW;
+            return count == FourInARow;
         }
 
         /// <summary>
@@ -252,15 +250,15 @@ namespace ConnectFour
                 return false;
             }
 
-            int lastPlayedGamePiece = BoardGrid[lastMove.ColumnIndex, lastMove.RowIndex];
+            int lastPlayedGamePiece = _boardGrid[lastMove.ColumnIndex, lastMove.RowIndex];
             int count = 1;
 
             // Check run going up to the left
             int rowIndex = lastMove.RowIndex + 1;
             int columnIndex = lastMove.ColumnIndex - 1;
-            while (rowIndex < RowSize && columnIndex >= 0 && count < FOUR_IN_A_ROW)
+            while (rowIndex < RowSize && columnIndex >= 0 && count < FourInARow)
             {
-                if (!BoardGrid[columnIndex, rowIndex].Equals(lastPlayedGamePiece))
+                if (!_boardGrid[columnIndex, rowIndex].Equals(lastPlayedGamePiece))
                 {
                     break;
                 }
@@ -269,14 +267,14 @@ namespace ConnectFour
                 columnIndex--;
             }
 
-            if (count != FOUR_IN_A_ROW)
+            if (count != FourInARow)
             {
                 // Check run going down to the right
                 rowIndex = lastMove.RowIndex - 1;
                 columnIndex = lastMove.ColumnIndex + 1;
-                while (rowIndex >= 0 && columnIndex < ColumnSize && count < FOUR_IN_A_ROW)
+                while (rowIndex >= 0 && columnIndex < ColumnSize && count < FourInARow)
                 {
-                    if (!BoardGrid[columnIndex, rowIndex].Equals(lastPlayedGamePiece))
+                    if (!_boardGrid[columnIndex, rowIndex].Equals(lastPlayedGamePiece))
                     {
                         break;
                     }
@@ -287,7 +285,7 @@ namespace ConnectFour
             }
 
             Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) has backward diagonal: {count}");
-            return count == FOUR_IN_A_ROW;
+            return count == FourInARow;
         }
 
         /// <summary>
@@ -296,7 +294,7 @@ namespace ConnectFour
         /// <returns>Game board.</returns>
         public int[,] GetBoard()
         {
-            return BoardGrid.Clone() as int[,];
+            return _boardGrid.Clone() as int[,];
         }
 
         /// <summary>
@@ -319,7 +317,7 @@ namespace ConnectFour
 
         private void SetBoardGrid(int[,] boardGrid)
         {
-            this.BoardGrid = boardGrid;
+            _boardGrid = boardGrid;
         }
 
         /// <summary>
@@ -329,7 +327,7 @@ namespace ConnectFour
         public IBoard Clone()
         {
             Board board = new Board(ColumnSize, RowSize);
-            board.SetBoardGrid(this.BoardGrid);
+            board.SetBoardGrid(_boardGrid);
             return board;
         }
     }

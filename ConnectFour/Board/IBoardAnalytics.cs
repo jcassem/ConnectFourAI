@@ -1,6 +1,4 @@
-﻿using ConnectFour;
-
-namespace ConnectFourGame.Board
+﻿namespace ConnectFourGame.Board
 {
     /// <summary>
     /// Tools to gather statistics and analysis on the current and potential state of a Connect four game board.

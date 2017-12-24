@@ -1,6 +1,6 @@
-using ConnectFour;
 using ConnectFourGame.Board;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TestConnectFourGame.Utils;
 
 namespace TestConnectFourGame
 {
@@ -10,7 +10,7 @@ namespace TestConnectFourGame
     [TestClass]
     public class BoardAnalyticsTest
     {
-        private const int NUMBER_OF_PIECES_IN_A_LINE = 3;
+        private const int NumberOfPiecesInALine = 3;
 
         /// <summary>
         /// Check for horizontal connect four.
@@ -18,10 +18,10 @@ namespace TestConnectFourGame
         [TestMethod]
         public void CountNumberOfHorizontalRunsTest()
         {
-            IBoard board = BoardCreator.GetBoardWithHorizontalLine(NUMBER_OF_PIECES_IN_A_LINE);
+            IBoard board = BoardCreator.GetBoardWithHorizontalLine(NumberOfPiecesInALine);
 
             IBoardAnalytics boardAnalytics = new BoardAnalytics();
-            int numberOfRuns = boardAnalytics.NumberOfPiecesInARowOnBoard(NUMBER_OF_PIECES_IN_A_LINE, BoardCreator.PLAYER_ONE_GAME_PIECE, board);
+            int numberOfRuns = boardAnalytics.NumberOfPiecesInARowOnBoard(NumberOfPiecesInALine, BoardCreator.PlayerOneGamePiece, board);
 
             Assert.AreEqual(numberOfRuns, 1);
         }
@@ -32,10 +32,10 @@ namespace TestConnectFourGame
         [TestMethod]
         public void CountNumberOfVerticalRunsTest()
         {
-            IBoard board = BoardCreator.GetBoardWithVerticalLine(NUMBER_OF_PIECES_IN_A_LINE);
+            IBoard board = BoardCreator.GetBoardWithVerticalLine(NumberOfPiecesInALine);
 
             IBoardAnalytics boardAnalytics = new BoardAnalytics();
-            int numberOfRuns = boardAnalytics.NumberOfPiecesInARowOnBoard(NUMBER_OF_PIECES_IN_A_LINE, BoardCreator.PLAYER_ONE_GAME_PIECE, board);
+            int numberOfRuns = boardAnalytics.NumberOfPiecesInARowOnBoard(NumberOfPiecesInALine, BoardCreator.PlayerOneGamePiece, board);
 
             Assert.AreEqual(numberOfRuns, 1);
         }
@@ -46,10 +46,10 @@ namespace TestConnectFourGame
         [TestMethod]
         public void CountNumberOfForwardDiagonalRunsTest()
         {
-            IBoard board = BoardCreator.GetBoardWithForwardDiagonalLine(NUMBER_OF_PIECES_IN_A_LINE);
+            IBoard board = BoardCreator.GetBoardWithForwardDiagonalLine(NumberOfPiecesInALine);
 
             IBoardAnalytics boardAnalytics = new BoardAnalytics();
-            int numberOfRuns = boardAnalytics.NumberOfPiecesInARowOnBoard(NUMBER_OF_PIECES_IN_A_LINE, BoardCreator.PLAYER_ONE_GAME_PIECE, board);
+            int numberOfRuns = boardAnalytics.NumberOfPiecesInARowOnBoard(NumberOfPiecesInALine, BoardCreator.PlayerOneGamePiece, board);
 
             Assert.AreEqual(numberOfRuns, 1);
         }
@@ -60,10 +60,10 @@ namespace TestConnectFourGame
         [TestMethod]
         public void CountNumberOfBackwardDiagonalRunsTest()
         {
-            IBoard board = BoardCreator.GetBoardWithBackwardDiagonalLine(NUMBER_OF_PIECES_IN_A_LINE);
+            IBoard board = BoardCreator.GetBoardWithBackwardDiagonalLine(NumberOfPiecesInALine);
 
             IBoardAnalytics boardAnalytics = new BoardAnalytics();
-            int numberOfRuns = boardAnalytics.NumberOfPiecesInARowOnBoard(NUMBER_OF_PIECES_IN_A_LINE, BoardCreator.PLAYER_ONE_GAME_PIECE, board);
+            int numberOfRuns = boardAnalytics.NumberOfPiecesInARowOnBoard(NumberOfPiecesInALine, BoardCreator.PlayerOneGamePiece, board);
 
             Assert.AreEqual(numberOfRuns, 1);
         }
