@@ -316,5 +316,21 @@ namespace ConnectFour
         {
             return RowSize;
         }
+
+        private void SetBoardGrid(int[,] boardGrid)
+        {
+            this.BoardGrid = boardGrid;
+        }
+
+        /// <summary>
+        /// Create a duplicate of this board.
+        /// </summary>
+        /// <returns>Cloned board.</returns>
+        public IBoard Clone()
+        {
+            Board board = new Board(ColumnSize, RowSize);
+            board.SetBoardGrid(this.BoardGrid);
+            return board;
+        }
     }
 }

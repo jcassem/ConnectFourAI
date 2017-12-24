@@ -52,5 +52,11 @@ namespace ConnectFour
         /// </summary>
         /// <returns>Number of rows in board.</returns>
         int GetRowCount();
+
+        /// <summary>
+        /// Create a duplicate of this board.
+        /// </summary>
+        /// <returns>Cloned board.</returns>
+        IBoard Clone();
     }
 }

@@ -10,20 +10,14 @@ namespace TestConnectFourGame
     [TestClass]
     public class BoardTest
     {
-        public const int BOARD_COLUMNS = 7;
-        public const int BOARD_ROWS = 6;
-
-        public const int PLAYER_ONE_GAME_PIECE = 1;
-        public const int PLAYER_TWO_GAME_PIECE = 2;
-
         /// <summary>
         /// Test the get column count check works.
         /// </summary>
         [TestMethod]
         public void ColumnCountTest()
         {
-            IBoard board = new Board(BOARD_COLUMNS, BOARD_ROWS);
-            Assert.IsTrue(board.GetColumnCount() == BOARD_COLUMNS);
+            IBoard board = new Board(BoardCreator.BOARD_COLUMNS, BoardCreator.BOARD_ROWS);
+            Assert.IsTrue(board.GetColumnCount() == BoardCreator.BOARD_COLUMNS);
         }
 
         /// <summary>
@@ -32,8 +26,8 @@ namespace TestConnectFourGame
         [TestMethod]
         public void RowCountTest()
         {
-            IBoard board = new Board(BOARD_COLUMNS, BOARD_ROWS);
-            Assert.IsTrue(board.GetRowCount() == BOARD_ROWS);
+            IBoard board = new Board(BoardCreator.BOARD_COLUMNS, BoardCreator.BOARD_ROWS);
+            Assert.IsTrue(board.GetRowCount() == BoardCreator.BOARD_ROWS);
         }
 
         /// <summary>
@@ -42,12 +36,12 @@ namespace TestConnectFourGame
         [TestMethod]
         public void ColumnIsFullTest()
         {
-            IBoard board = new Board(BOARD_COLUMNS, BOARD_ROWS);
+            IBoard board = new Board(BoardCreator.BOARD_COLUMNS, BoardCreator.BOARD_ROWS);
             var column = 0;
 
-            for (int row = 0; row < BOARD_ROWS; row++)
+            for (int row = 0; row < BoardCreator.BOARD_ROWS; row++)
             {
-                board.AddPiece(new GameMove(PLAYER_ONE_GAME_PIECE, column));
+                board.AddPiece(new GameMove(BoardCreator.PLAYER_ONE_GAME_PIECE, column));
             }
 
             Assert.IsTrue(board.IsColumnFull(column));
@@ -59,12 +53,12 @@ namespace TestConnectFourGame
         [TestMethod]
         public void ColumnIsNotFullTest()
         {
-            IBoard board = new Board(BOARD_COLUMNS, BOARD_ROWS);
+            IBoard board = new Board(BoardCreator.BOARD_COLUMNS, BoardCreator.BOARD_ROWS);
             var column = 0;
 
-            for (int row = 0; row < BOARD_ROWS - 1; row++)
+            for (int row = 0; row < BoardCreator.BOARD_ROWS - 1; row++)
             {
-                board.AddPiece(new GameMove(PLAYER_ONE_GAME_PIECE, column));
+                board.AddPiece(new GameMove(BoardCreator.PLAYER_ONE_GAME_PIECE, column));
             }
 
             Assert.IsFalse(board.IsColumnFull(column));
@@ -76,12 +70,12 @@ namespace TestConnectFourGame
         [TestMethod]
         public void BoardIsFullTest()
         {
-            IBoard board = new Board(BOARD_COLUMNS, BOARD_ROWS);
-            for (int col = 0; col < BOARD_COLUMNS; col++)
+            IBoard board = new Board(BoardCreator.BOARD_COLUMNS, BoardCreator.BOARD_ROWS);
+            for (int col = 0; col < BoardCreator.BOARD_COLUMNS; col++)
             {
-                for (int row = 0; row < BOARD_ROWS; row++)
+                for (int row = 0; row < BoardCreator.BOARD_ROWS; row++)
                 {
-                    board.AddPiece(new GameMove(PLAYER_ONE_GAME_PIECE, col));
+                    board.AddPiece(new GameMove(BoardCreator.PLAYER_ONE_GAME_PIECE, col));
                 }
             }
             Assert.IsTrue(board.IsFull());
@@ -93,12 +87,12 @@ namespace TestConnectFourGame
         [TestMethod]
         public void BoardIsNotFullTest()
         {
-            IBoard board = new Board(BOARD_COLUMNS, BOARD_ROWS);
-            for (int col = 0; col < BOARD_COLUMNS; col++)
+            IBoard board = new Board(BoardCreator.BOARD_COLUMNS, BoardCreator.BOARD_ROWS);
+            for (int col = 0; col < BoardCreator.BOARD_COLUMNS; col++)
             {
-                for (int row = 0; row < BOARD_ROWS - 1; row++)
+                for (int row = 0; row < BoardCreator.BOARD_ROWS - 1; row++)
                 {
-                    board.AddPiece(new GameMove(PLAYER_ONE_GAME_PIECE, col));
+                    board.AddPiece(new GameMove(BoardCreator.PLAYER_ONE_GAME_PIECE, col));
                 }
             }
             Assert.IsFalse(board.IsFull());

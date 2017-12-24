@@ -10,19 +10,18 @@ namespace TestConnectFourGame
     [TestClass]
     public class ConnectFourCheckTest
     {
+        public const int CONNECT_FOUR_LINE_LENGTH = 4;
+
         /// <summary>
         /// Check for horizontal connect four.
         /// </summary>
         [TestMethod]
         public void HorizonalFourTest()
         {
-            IBoard board = new Board(BoardTest.BOARD_COLUMNS, BoardTest.BOARD_ROWS);
+            IBoard board = BoardCreator.GetBlankBoard();
 
-            board.AddPiece(new GameMove(BoardTest.PLAYER_ONE_GAME_PIECE, 0));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_ONE_GAME_PIECE, 1));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_ONE_GAME_PIECE, 2));
-            Point lastMove = board.AddPiece(new GameMove(BoardTest.PLAYER_ONE_GAME_PIECE, 3));
-
+            Point lastMove = BoardCreator.AddHorizontalLineToBoard(CONNECT_FOUR_LINE_LENGTH, board);
+            
             Assert.IsTrue(board.HasConnectFour(lastMove));
         }
 
@@ -32,12 +31,9 @@ namespace TestConnectFourGame
         [TestMethod]
         public void VerticalFourTest()
         {
-            IBoard board = new Board(BoardTest.BOARD_COLUMNS, BoardTest.BOARD_ROWS);
+            IBoard board = BoardCreator.GetBlankBoard();
 
-            board.AddPiece(new GameMove(BoardTest.PLAYER_ONE_GAME_PIECE, 0));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_ONE_GAME_PIECE, 0));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_ONE_GAME_PIECE, 0));
-            Point lastMove = board.AddPiece(new GameMove(BoardTest.PLAYER_ONE_GAME_PIECE, 0));
+            Point lastMove = BoardCreator.AddVerticalLineToBoard(CONNECT_FOUR_LINE_LENGTH, board);
 
             Assert.IsTrue(board.HasConnectFour(lastMove));
         }
@@ -48,22 +44,10 @@ namespace TestConnectFourGame
         [TestMethod]
         public void ForwardDiagonalFourTest()
         {
-            IBoard board = new Board(BoardTest.BOARD_COLUMNS, BoardTest.BOARD_ROWS);
+            IBoard board = BoardCreator.GetBlankBoard();
 
-            // Add opponent entries to prep for a diagnonal entry
-            board.AddPiece(new GameMove(BoardTest.PLAYER_TWO_GAME_PIECE, 1));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_TWO_GAME_PIECE, 2));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_TWO_GAME_PIECE, 2));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_TWO_GAME_PIECE, 3));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_TWO_GAME_PIECE, 3));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_TWO_GAME_PIECE, 3));
-
-            // Add connect four diagonal
-            board.AddPiece(new GameMove(BoardTest.PLAYER_ONE_GAME_PIECE, 0));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_ONE_GAME_PIECE, 1));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_ONE_GAME_PIECE, 2));
-            Point lastMove = board.AddPiece(new GameMove(BoardTest.PLAYER_ONE_GAME_PIECE, 3));
-
+            Point lastMove = BoardCreator.AddForwardDiagonalLineToBoard(CONNECT_FOUR_LINE_LENGTH, board);
+            
             Assert.IsTrue(board.HasConnectFour(lastMove));
         }
 
@@ -73,21 +57,9 @@ namespace TestConnectFourGame
         [TestMethod]
         public void BackwardDiagonalFourTest()
         {
-            IBoard board = new Board(BoardTest.BOARD_COLUMNS, BoardTest.BOARD_ROWS);
+            IBoard board = BoardCreator.GetBlankBoard();
 
-            // Add opponent entries to prep for a diagnonal entry
-            board.AddPiece(new GameMove(BoardTest.PLAYER_TWO_GAME_PIECE, 0));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_TWO_GAME_PIECE, 0));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_TWO_GAME_PIECE, 0));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_TWO_GAME_PIECE, 1));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_TWO_GAME_PIECE, 1));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_TWO_GAME_PIECE, 2));
-
-            // Add connect four diagonal
-            board.AddPiece(new GameMove(BoardTest.PLAYER_ONE_GAME_PIECE, 0));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_ONE_GAME_PIECE, 1));
-            board.AddPiece(new GameMove(BoardTest.PLAYER_ONE_GAME_PIECE, 2));
-            Point lastMove = board.AddPiece(new GameMove(BoardTest.PLAYER_ONE_GAME_PIECE, 3));
+            Point lastMove = BoardCreator.AddBackwardDiagonalLineToBoard(CONNECT_FOUR_LINE_LENGTH, board);
 
             Assert.IsTrue(board.HasConnectFour(lastMove));
         }
