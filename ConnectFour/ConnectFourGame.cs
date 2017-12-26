@@ -11,8 +11,8 @@ namespace ConnectFourGame
         private const int DefaultBoardColumns = 7;
         public const int DefaultBoardRows = 6;
 
-        const int PlayerOneGamePiece = 1;
-        const int PlayerTwoGamePiece = 2;
+        public const int PlayerOneGamePiece = 1;
+        public const int PlayerTwoGamePiece = 2;
 
         private readonly Player.Player _playerOne;
         private readonly Player.Player _playerTwo;
@@ -25,11 +25,13 @@ namespace ConnectFourGame
         /// <summary>
         /// Constructor to set up connect four game.
         /// </summary>
-        public ConnectFourGame()
+        public ConnectFourGame(Player.Player playerOne, Player.Player playerTwo)
         {
             _board = new Board.Board(DefaultBoardColumns, DefaultBoardRows);
-            _playerOne = new RandomPlayer("Player One", PlayerOneGamePiece);
-            _playerTwo = new RandomPlayer("Player Two", PlayerTwoGamePiece);
+
+            _playerOne = playerOne;
+            _playerTwo = playerTwo;
+
             _playerOneNext = true;
             _moveCount = 0;
         }

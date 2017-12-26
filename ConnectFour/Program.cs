@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using ConnectFourGame.Player;
 
 namespace ConnectFourGame
 {
@@ -7,10 +8,10 @@ namespace ConnectFourGame
     {
         static void Main(string[] args)
         {
-            // sConsole.WriteLine("Press any key to start game...");
-            // Console.ReadKey();
+            Player.Player playerOne = new AiPlayer("Player One", ConnectFourGame.PlayerOneGamePiece);
+            Player.Player playerTwo = new AiPlayer("Player Two", ConnectFourGame.PlayerTwoGamePiece);
 
-            ConnectFourGame game = new ConnectFourGame();
+            ConnectFourGame game = new ConnectFourGame(playerOne, playerTwo);
             Console.WriteLine(game.GetPrintedBoard());
 
             Console.WriteLine("Starting game:");
