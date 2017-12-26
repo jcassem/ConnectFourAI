@@ -13,11 +13,10 @@ namespace ConnectFourGame.Player
         /// <summary>
         /// Player constructor.
         /// </summary>
-        /// <param name="name">Player name.</param>
         /// <param name="gamePiece">Players game piece.</param>
-        protected Player(string name, int gamePiece)
+        protected Player(int gamePiece)
         {
-            Name = name;
+            Name = "Player " + gamePiece;
             GamePiece = gamePiece;
         }
 

@@ -1,0 +1,17 @@
+{
+  "id": 1,
+  "generation": 1,
+  "characteristics": {
+    "scoreForTwoInARow": 10,
+    "scoreForThreeInARow": 100,
+    "scoreForFourInARow": 1000,
+    "scoreForGivingOpponentTwoInARow": -10,
+    "scoreForGivingOpponentThreeInARow": -100,
+    "scoreForGivingOpponentFourInARow": -1000
+  },
+  "scores":{
+    "highestGameScore": 0,
+    "numberOfWins": 0,
+    "numberOfLoses": 0
+  }
+}

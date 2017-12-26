@@ -21,6 +21,6 @@
         /// <param name="potentialMove">Potential move to do before running analytics.</param>
         /// <param name="board">Game board to check.</param>
         /// <returns>Number of connect Xs on a board.</returns>
-        int NumberOfPiecesInARowOnBoardFromPotnetialMove(int piecesInARow, GameMove potentialMove, IBoard board);
+        int NumberOfPiecesInARowOnBoardFromPotentialMove(int piecesInARow, GameMove potentialMove, IBoard board);
     }
 }

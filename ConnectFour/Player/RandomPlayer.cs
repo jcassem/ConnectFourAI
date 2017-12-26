@@ -12,9 +12,8 @@ namespace ConnectFourGame.Player
         /// <summary>
         /// Random Player constructor.
         /// </summary>
-        /// <param name="name">Players name.</param>
         /// <param name="gamePiece">Game piece.</param>
-        public RandomPlayer(string name, int gamePiece) : base(name, gamePiece)
+        public RandomPlayer(int gamePiece) : base(gamePiece)
         {
         }
 

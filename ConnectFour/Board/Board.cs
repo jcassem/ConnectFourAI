@@ -10,6 +10,10 @@ namespace ConnectFourGame.Board
     {
         public const int FourInARow = 4;
 
+        public const int ThreeInARow = 3;
+
+        public const int TwoInARow = 2;
+
         public const int DefaultBoardValue = 0;
 
         private int[,] _boardGrid;

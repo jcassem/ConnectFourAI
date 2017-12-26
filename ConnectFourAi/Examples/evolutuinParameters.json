@@ -1,0 +1,8 @@
+{
+  "populationSize": 40,
+  "iterations": 50,
+  "roundEvaluation": "singleMatch,doubleMatch,playEveryone,tournament",
+  "parentSelectionPercentage": 10,
+  "childMutationPercentage": 10,
+  "elitismPercentage": 5
+}

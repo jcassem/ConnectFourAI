@@ -1,6 +1,7 @@
 ﻿using ConnectFourGame.Board;
 using ConnectFourGame.Exceptions;
-using System;
+using ConnectFourGame.Player.AiAttributes;
+using Newtonsoft.Json;
 
 namespace ConnectFourGame.Player
 {
@@ -9,13 +10,31 @@ namespace ConnectFourGame.Player
     /// </summary>
     public class AiPlayer : Player, IAiPlayer
     {
-        private IBoardAnalytics _boardAnalytics;
-        private static readonly Random random = new Random();
-        private static readonly object syncLock = new object();
+        [JsonProperty("id")]
+        public long Id { get; set; }
 
-        public AiPlayer(string name, int gamePiece) : base(name, gamePiece)
+        [JsonProperty("generation")]
+        public long Generation { get; set; }
+
+        [JsonProperty("characteristics")]
+        public Characteristics Characteristics { get; set; }
+
+        [JsonProperty("scores")]
+        public Scores Scores { get; set; }
+
+        private readonly IBoardAnalytics _boardAnalytics;
+
+        /// <summary>
+        /// Create an AI Player
+        /// </summary>
+        /// <param name="gamePiece">Game piece to represent this player.</param>
+        /// <param name="characteristics">Characteristics of the AI player.</param>
+        /// <param name="previousScores">Scores from previous runs.</param>
+        public AiPlayer(int gamePiece, Characteristics characteristics, Scores previousScores = null) : base(gamePiece)
         {
             _boardAnalytics = new BoardAnalytics();
+            Characteristics = characteristics;
+            Scores = previousScores;
         }
 
         /// <summary>
@@ -39,22 +58,20 @@ namespace ConnectFourGame.Player
                 throw new BoardFullException();
             }
 
-            int highestScoringColumnScore = -1;
-            int highestScoringColumnIndex = 0;
+            long highestScoringColumnScore = -1;
+            var highestScoringColumnIndex = 0;
 
             for (int columnIndex = 0; columnIndex < board.GetColumnCount(); columnIndex++)
             {
-                var columnScore = 0;
                 if (!board.IsColumnFull((columnIndex)))
                 {
-                    columnScore = GetColumnScore(board, columnIndex);
+                    var columnScore = GetColumnScore(board, columnIndex);
                     if (columnScore > highestScoringColumnScore)
                     {
                         highestScoringColumnScore = columnScore;
                         highestScoringColumnIndex = columnIndex;
                     }
                 }
-                //Console.WriteLine($"-- {Name} on index {columnIndex} has score {columnScore} against high score {highestScoringColumnScore} from column {highestScoringColumnIndex}");
             }
 
             return highestScoringColumnIndex;
@@ -66,12 +83,34 @@ namespace ConnectFourGame.Player
         /// <param name="board">Game board.</param>
         /// <param name="columnIndex">Column index.</param>
         /// <returns>Score of the column choice as players next move.</returns>
-        public int GetColumnScore(IBoard board, int columnIndex)
+        public long GetColumnScore(IBoard board, int columnIndex)
         {
-            lock (syncLock)
-            { // synchronize
-                return random.Next(0, 100);
-            }
+            long finalScore = 0;
+
+            // Get score for making the move
+            finalScore += _boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.TwoInARow, new GameMove(GamePiece, columnIndex), board)
+                          * Characteristics.ScoreForTwoInARow;
+            finalScore += _boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.ThreeInARow, new GameMove(GamePiece, columnIndex), board)
+                          * Characteristics.ScoreForThreeInARow;
+            finalScore += _boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.FourInARow, new GameMove(GamePiece, columnIndex), board)
+                          * Characteristics.ScoreForFourInARow;
+
+            // Setup for checking opponents potential move
+            IBoard boardAfterPotentialMove = board.Clone();
+            boardAfterPotentialMove.AddPiece(new GameMove(GamePiece, columnIndex));
+            var opponentsGamePiece = GamePiece == ConnectFourGame.PlayerOneGamePiece
+                ? ConnectFourGame.PlayerTwoGamePiece
+                : ConnectFourGame.PlayerOneGamePiece;
+
+            // Subtract points for the potential move the opponent gets
+            finalScore += _boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.TwoInARow, new GameMove(opponentsGamePiece, columnIndex), board)
+                          * Characteristics.ScoreForGivingOpponentTwoInARow;
+            finalScore += _boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.ThreeInARow, new GameMove(opponentsGamePiece, columnIndex), board)
+                          * Characteristics.ScoreForGivingOpponentThreeInARow;
+            finalScore += _boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.FourInARow, new GameMove(opponentsGamePiece, columnIndex), board)
+                          * Characteristics.ScoreForGivingOpponentFourInARow;
+
+            return finalScore;
         }
     }
 }

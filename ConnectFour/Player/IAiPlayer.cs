@@ -20,6 +20,6 @@ namespace ConnectFourGame.Player
         /// <param name="board">Game board.</param>
         /// <param name="columnIndex">Column index.</param>
         /// <returns>Score of the column choice as players next move.</returns>
-        int GetColumnScore(IBoard board, int columnIndex);
+        long GetColumnScore(IBoard board, int columnIndex);
     }
 }
