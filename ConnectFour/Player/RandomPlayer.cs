@@ -7,21 +7,26 @@ namespace ConnectFourGame.Player
     /// <summary>
     /// Connect four player - picks where to go randomly.
     /// </summary>
-    public class RandomPlayer : AbstractPlayer
+    public class RandomPlayer : IPlayer
     {
+        public string Name { get; }
+        public int GamePiece { get; set; }
+
         /// <summary>
         /// Random Player constructor.
         /// </summary>
         /// <param name="gamePiece">Game piece.</param>
-        public RandomPlayer(int gamePiece) : base(gamePiece)
+        public RandomPlayer(int gamePiece)
         {
+            Name = "Player " + gamePiece;
+            GamePiece = gamePiece;
         }
 
         /// <summary>
         /// Apply a game piece to a random column on the board.
         /// </summary>
         /// <param name="board">Connect four game board.</param>
-        public override Point MakeMove(IBoard board)
+        public Point MakeMove(IBoard board)
         {
             if (board.IsFull())
             {

@@ -4,22 +4,22 @@ namespace ConnectFourGame.Player.AiAttributes
 {
     public class Characteristics
     {
-        [JsonProperty("scoreForTwoInARow")]
-        public long ScoreForTwoInARow { get; set; }
+        [JsonProperty("scoreConnectTwo")]
+        public int ScoreConnectTwo { get; set; }
 
-        [JsonProperty("scoreForThreeInARow")]
-        public long ScoreForThreeInARow { get; set; }
+        [JsonProperty("scoreConnectThree")]
+        public int ScoreConnectThree { get; set; }
 
-        [JsonProperty("scoreForFourInARow")]
-        public long ScoreForFourInARow { get; set; }
+        [JsonProperty("scoreConnectFour")]
+        public int ScoreConnectFour { get; set; }
 
-        [JsonProperty("scoreForGivingOpponentTwoInARow")]
-        public long ScoreForGivingOpponentTwoInARow { get; set; }
+        [JsonProperty("scoreGivingConnectTwo")]
+        public int ScoreGivingConnectTwo { get; set; }
 
-        [JsonProperty("scoreForGivingOpponentThreeInARow")]
-        public long ScoreForGivingOpponentThreeInARow { get; set; }
+        [JsonProperty("scoreGivingConnectThree")]
+        public int ScoreGivingConnectThree { get; set; }
 
-        [JsonProperty("scoreForGivingOpponentFourInARow")]
-        public long ScoreForGivingOpponentFourInARow { get; set; }
+        [JsonProperty("scoreGivingConnectFour")]
+        public int ScoreGivingConnectFour { get; set; }
     }
 }

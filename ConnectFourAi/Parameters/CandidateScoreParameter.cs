@@ -12,9 +12,9 @@ namespace ConnectFourAI.Parameters
         public CandidateScoreTypes ScoreType { get; set; }
 
         [JsonProperty("min")]
-        public long Min { get; set; }
+        public int Min { get; set; }
 
         [JsonProperty("max")]
-        public long Max { get; set; }
+        public int Max { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace ConnectFourGame.Player
     /// <summary>
     /// Candidate solution for a connect four player.
     /// </summary>
-    public class AiPlayer : AbstractPlayer, IAiPlayer
+    public class AiPlayer : IPlayer, IAiPlayer
     {
         [JsonProperty("id")]
         public long Id { get; set; }
@@ -22,17 +22,15 @@ namespace ConnectFourGame.Player
         [JsonProperty("scores")]
         public Scores Scores { get; set; }
 
-        private readonly IBoardAnalytics _boardAnalytics;
+        private int GamePiece { get; set; }
 
         /// <summary>
         /// Create an AI Player
         /// </summary>
-        /// <param name="gamePiece">Game piece to represent this player.</param>
         /// <param name="characteristics">Characteristics of the AI player.</param>
         /// <param name="previousScores">Scores from previous runs.</param>
-        public AiPlayer(int gamePiece, Characteristics characteristics, Scores previousScores = null) : base(gamePiece)
+        public AiPlayer(Characteristics characteristics, Scores previousScores = null)
         {
-            _boardAnalytics = new BoardAnalytics();
             Characteristics = characteristics;
             Scores = previousScores;
         }
@@ -41,11 +39,11 @@ namespace ConnectFourGame.Player
         /// Apply a game piece to board.
         /// </summary>
         /// <param name="board">Connect four game board.</param>
-        public override Point MakeMove(IBoard board)
+        public Point MakeMove(IBoard board)
         {
             if (GamePiece == Board.Board.DefaultBoardValue)
             {
-                throw new GamePieceNotSetException($"{Name} does not have a game piece.");
+                throw new GamePieceNotSetException($"{Id} does not have a game piece.");
             }
 
             return board.AddPiece(new GameMove(GamePiece, PickNextMoveColumn(board)));
@@ -90,15 +88,16 @@ namespace ConnectFourGame.Player
         /// <returns>Score of the column choice as players next move.</returns>
         public long GetColumnScore(IBoard board, int columnIndex)
         {
+            IBoardAnalytics boardAnalytics = new BoardAnalytics();
             long finalScore = 0;
 
             // Get score for making the move
-            finalScore += _boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.TwoInARow, new GameMove(GamePiece, columnIndex), board)
-                          * Characteristics.ScoreForTwoInARow;
-            finalScore += _boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.ThreeInARow, new GameMove(GamePiece, columnIndex), board)
-                          * Characteristics.ScoreForThreeInARow;
-            finalScore += _boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.FourInARow, new GameMove(GamePiece, columnIndex), board)
-                          * Characteristics.ScoreForFourInARow;
+            finalScore += boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.TwoInARow, new GameMove(GamePiece, columnIndex), board)
+                          * Characteristics.ScoreConnectTwo;
+            finalScore += boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.ThreeInARow, new GameMove(GamePiece, columnIndex), board)
+                          * Characteristics.ScoreConnectThree;
+            finalScore += boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.FourInARow, new GameMove(GamePiece, columnIndex), board)
+                          * Characteristics.ScoreConnectThree;
 
             // Setup for checking opponents potential move
             IBoard boardAfterPotentialMove = board.Clone();
@@ -108,12 +107,12 @@ namespace ConnectFourGame.Player
                 : ConnectFourGame.PlayerOneGamePiece;
 
             // Subtract points for the potential move the opponent gets
-            finalScore += _boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.TwoInARow, new GameMove(opponentsGamePiece, columnIndex), board)
-                          * Characteristics.ScoreForGivingOpponentTwoInARow;
-            finalScore += _boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.ThreeInARow, new GameMove(opponentsGamePiece, columnIndex), board)
-                          * Characteristics.ScoreForGivingOpponentThreeInARow;
-            finalScore += _boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.FourInARow, new GameMove(opponentsGamePiece, columnIndex), board)
-                          * Characteristics.ScoreForGivingOpponentFourInARow;
+            finalScore += boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.TwoInARow, new GameMove(opponentsGamePiece, columnIndex), board)
+                          * Characteristics.ScoreGivingConnectTwo;
+            finalScore += boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.ThreeInARow, new GameMove(opponentsGamePiece, columnIndex), board)
+                          * Characteristics.ScoreGivingConnectThree;
+            finalScore += boardAnalytics.NumberOfPiecesInARowOnBoardFromPotentialMove(Board.Board.FourInARow, new GameMove(opponentsGamePiece, columnIndex), board)
+                          * Characteristics.ScoreGivingConnectFour;
 
             return finalScore;
         }

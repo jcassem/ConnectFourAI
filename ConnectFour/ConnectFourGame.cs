@@ -1,5 +1,5 @@
 ﻿using System;
-using ConnectFourGame.Player;
+using System.Threading;
 
 namespace ConnectFourGame
 {
@@ -14,18 +14,17 @@ namespace ConnectFourGame
         public const int PlayerOneGamePiece = 1;
         public const int PlayerTwoGamePiece = 2;
 
-        private readonly Player.AbstractPlayer _playerOne;
-        private readonly Player.AbstractPlayer _playerTwo;
+        private readonly Player.IPlayer _playerOne;
+        private readonly Player.IPlayer _playerTwo;
         private readonly Board.Board _board;
 
         private bool _playerOneNext;
-        private int _moveCount;
         private Point _lastMove;
 
         /// <summary>
         /// Constructor to set up connect four game.
         /// </summary>
-        public ConnectFourGame(Player.AbstractPlayer playerOne, Player.AbstractPlayer playerTwo)
+        public ConnectFourGame(Player.IPlayer playerOne, Player.IPlayer playerTwo)
         {
             _board = new Board.Board(DefaultBoardColumns, DefaultBoardRows);
 
@@ -33,7 +32,43 @@ namespace ConnectFourGame
             _playerTwo = playerTwo;
 
             _playerOneNext = true;
-            _moveCount = 0;
+        }
+
+        /// <summary>
+        /// Runs the game set up.
+        /// </summary>
+        /// <param name="displayGame">Print the game board after each players move.</param>
+        public void PlayGame(bool displayGame = false)
+        {
+            bool gameOver = false;
+            while (!gameOver)
+            {
+                // Console.Clear();
+                PlayNextMove();
+
+                if (_board.IsFull())
+                {
+                    gameOver = true;
+                    if (displayGame)
+                    {
+                        Console.WriteLine("Board is full");
+                    }
+                }
+                else if (_board.HasConnectFour(_lastMove))
+                {
+                    gameOver = true;
+                    if (displayGame)
+                    {
+                        Console.WriteLine("Player wins");
+                    }
+                }
+
+                if (displayGame)
+                {
+                    Console.WriteLine(GetPrintedBoard());
+                    Thread.Sleep(500);
+                }
+            }
         }
 
         /// <summary>
@@ -51,32 +86,13 @@ namespace ConnectFourGame
             }
 
             _playerOneNext = !_playerOneNext;
-            _moveCount++;
-        }
-
-        /// <summary>
-        /// Check if the game board is full of game pieces.
-        /// </summary>
-        /// <returns>Whether the game board is full.</returns>
-        public bool BoardIsFull()
-        {
-            return _board.IsFull();
-        }
-
-        /// <summary>
-        /// Check if the last move resulted in a connect four.
-        /// </summary>
-        /// <returns>Board has connect four.</returns>
-        public bool LastMoveWonGame()
-        {
-            return _board.HasConnectFour(_lastMove);
         }
 
         /// <summary>
         /// Returns string representation of game board.
         /// </summary>
         /// <returns>String representation of game board.</returns>
-        public string GetPrintedBoard()
+        private string GetPrintedBoard()
         {
             string printedBoard = "";
             string printedRow = "";
