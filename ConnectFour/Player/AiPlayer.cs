@@ -8,7 +8,7 @@ namespace ConnectFourGame.Player
     /// <summary>
     /// Candidate solution for a connect four player.
     /// </summary>
-    public class AiPlayer : Player, IAiPlayer
+    public class AiPlayer : AbstractPlayer, IAiPlayer
     {
         [JsonProperty("id")]
         public long Id { get; set; }
@@ -43,6 +43,11 @@ namespace ConnectFourGame.Player
         /// <param name="board">Connect four game board.</param>
         public override Point MakeMove(IBoard board)
         {
+            if (GamePiece == Board.Board.DefaultBoardValue)
+            {
+                throw new GamePieceNotSetException($"{Name} does not have a game piece.");
+            }
+
             return board.AddPiece(new GameMove(GamePiece, PickNextMoveColumn(board)));
         }
 

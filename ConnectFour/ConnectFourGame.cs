@@ -14,8 +14,8 @@ namespace ConnectFourGame
         public const int PlayerOneGamePiece = 1;
         public const int PlayerTwoGamePiece = 2;
 
-        private readonly Player.Player _playerOne;
-        private readonly Player.Player _playerTwo;
+        private readonly Player.AbstractPlayer _playerOne;
+        private readonly Player.AbstractPlayer _playerTwo;
         private readonly Board.Board _board;
 
         private bool _playerOneNext;
@@ -25,7 +25,7 @@ namespace ConnectFourGame
         /// <summary>
         /// Constructor to set up connect four game.
         /// </summary>
-        public ConnectFourGame(Player.Player playerOne, Player.Player playerTwo)
+        public ConnectFourGame(Player.AbstractPlayer playerOne, Player.AbstractPlayer playerTwo)
         {
             _board = new Board.Board(DefaultBoardColumns, DefaultBoardRows);
 

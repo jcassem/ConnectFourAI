@@ -8,8 +8,8 @@ namespace ConnectFourGame
     {
         static void Main(string[] args)
         {
-            Player.Player playerOne = new RandomPlayer(ConnectFourGame.PlayerOneGamePiece);
-            Player.Player playerTwo = new RandomPlayer(ConnectFourGame.PlayerTwoGamePiece);
+            AbstractPlayer playerOne = new RandomPlayer(ConnectFourGame.PlayerOneGamePiece);
+            AbstractPlayer playerTwo = new RandomPlayer(ConnectFourGame.PlayerTwoGamePiece);
 
             ConnectFourGame game = new ConnectFourGame(playerOne, playerTwo);
             Console.WriteLine(game.GetPrintedBoard());

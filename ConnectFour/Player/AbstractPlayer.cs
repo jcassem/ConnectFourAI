@@ -5,16 +5,16 @@ namespace ConnectFourGame.Player
     /// <summary>
     /// Connect four player.
     /// </summary>
-    public abstract class Player
+    public abstract class AbstractPlayer
     {
         public string Name { get; }
-        public int GamePiece { get; }
+        public int GamePiece { get; set; }
 
         /// <summary>
         /// Player constructor.
         /// </summary>
         /// <param name="gamePiece">Players game piece.</param>
-        protected Player(int gamePiece)
+        protected AbstractPlayer(int gamePiece)
         {
             Name = "Player " + gamePiece;
             GamePiece = gamePiece;

@@ -1,0 +1,40 @@
+{
+  "populationSize": 40,
+  "iterations": 50,
+  "roundEvaluation": "SingleMatch",
+  "parentSelectionPercentage": 10,
+  "childMutationPercentage": 10,
+  "elitismPercentage": 5,
+  "candidateScoreParameters": [
+    {
+      "scoreType": "ScoreConnectTwo",
+      "min": 0,
+      "max": 100
+    },
+    {
+      "scoreType": "ScoreConnectThree",
+      "min": 0,
+      "max": 400
+    },
+    {
+      "scoreType": "ScoreConnectFour",
+      "min": 0,
+      "max": 1000
+    },
+    {
+      "scoreType": "GiveConnectTwo",
+      "min": -100,
+      "max": 0
+    },
+    {
+      "scoreType": "GiveConnectThree",
+      "min": -400,
+      "max": 0
+    },
+    {
+      "scoreType": "GiveConnectFour",
+      "min": -1000,
+      "max": 0
+    }
+  ]
+}

@@ -1,11 +1,11 @@
-﻿namespace ConnectFourAI
+﻿namespace ConnectFourAI.Parameters
 {
     /// <summary>
     /// Round evalution options
     /// </summary>
     public enum RoundEvaluation
     {
-        SingeMatch,
+        SingleMatch,
         DoubleMatch,
         PlayEveryone,
         Tournament

@@ -7,7 +7,7 @@ namespace ConnectFourGame.Player
     /// <summary>
     /// Connect four player - picks where to go randomly.
     /// </summary>
-    public class RandomPlayer : Player
+    public class RandomPlayer : AbstractPlayer
     {
         /// <summary>
         /// Random Player constructor.

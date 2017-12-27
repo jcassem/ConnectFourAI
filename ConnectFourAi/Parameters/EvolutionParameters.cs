@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
-namespace ConnectFourAI
+namespace ConnectFourAI.Parameters
 {
     /// <summary>
     /// Parameters for the evolutionary algorithm.
@@ -12,10 +13,10 @@ namespace ConnectFourAI
 
         [JsonProperty("iterations")]
         public long Iterations { get; set; }
-
-        [JsonProperty("roundEvaluation")]
-        public string RoundEvaluation { get; set; }
-
+        
+        [JsonConverter(typeof(StringEnumConverter))]
+        public RoundEvaluation RoundEvaluation { get; set; }
+        
         [JsonProperty("parentSelectionPercentage")]
         public long ParentSelectionPercentage { get; set; }
 
@@ -24,5 +25,8 @@ namespace ConnectFourAI
 
         [JsonProperty("elitismPercentage")]
         public long ElitismPercentage { get; set; }
+
+        [JsonProperty("candidateScoreParameters")]
+        public CandidateScoreParameter[] CandidateScoreParameters { get; set; }
     }
 }
