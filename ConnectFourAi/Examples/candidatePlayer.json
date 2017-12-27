@@ -5,9 +5,9 @@
     "scoreConnectTwo": 10,
     "scoreConnectThree": 100,
     "scoreConnectFour": 1000,
-    "scorGivingeConnectTwo": -10,
-    "scorGivingeConnectThree": -100,
-    "scorGivingeConnectFour": -1000
+    "scoreGivingConnectTwo": -10,
+    "scoreGivingConnectThree": -100,
+    "scoreGivingConnectFour": -1000
   },
   "scores":{
     "highestGameScore": 0,

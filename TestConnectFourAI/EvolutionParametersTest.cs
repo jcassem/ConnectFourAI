@@ -47,7 +47,7 @@ namespace TestConnectFourAI
         /// Test loading evolution parameters from json to object.
         /// </summary>
         [TestMethod]
-        public void LoadEvolutionParametersTest()
+        public void LoadEvolutionParametersFromJsonTest()
         {
             EvolutionParameters parameters = JsonConvert.DeserializeObject<EvolutionParameters>(EvolutionParamterJson);
 
