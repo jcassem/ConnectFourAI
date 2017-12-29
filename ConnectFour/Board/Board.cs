@@ -1,5 +1,4 @@
-﻿using System;
-using ConnectFourGame.Exceptions;
+﻿using ConnectFourGame.Exceptions;
 
 namespace ConnectFourGame.Board
 {
@@ -64,12 +63,13 @@ namespace ConnectFourGame.Board
                 throw new AddDefaultValueAsGamePieceException();
             }
 
-            int row = 0;
+            var row = 0;
             while (_boardGrid[playersMove.BoardColumn, row] != DefaultBoardValue)
             {
                 row++;
             }
             _boardGrid[playersMove.BoardColumn, row] = playersMove.GamePiece;
+
             return new Point(playersMove.BoardColumn, row);
         }
 
@@ -142,7 +142,7 @@ namespace ConnectFourGame.Board
                 }
             }
 
-            Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) has horizonal:{count}");
+            // Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) has horizonal:{count}");
             return count == FourInARow;
         }
 
@@ -188,7 +188,7 @@ namespace ConnectFourGame.Board
                 }
             }
 
-            Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) vertical: {count}");
+            // Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) vertical: {count}");
             return count == FourInARow;
         }
 
@@ -238,7 +238,7 @@ namespace ConnectFourGame.Board
                 }
             }
 
-            Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) has forward diagonal: {count}");
+            // Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) has forward diagonal: {count}");
             return count == FourInARow;
         }
 
@@ -288,7 +288,7 @@ namespace ConnectFourGame.Board
                 }
             }
 
-            Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) has backward diagonal: {count}");
+            // Console.WriteLine($"Player {lastPlayedGamePiece} from move ({lastMove.ColumnIndex},{lastMove.RowIndex}) has backward diagonal: {count}");
             return count == FourInARow;
         }
 
@@ -319,11 +319,6 @@ namespace ConnectFourGame.Board
             return RowSize;
         }
 
-        private void SetBoardGrid(int[,] boardGrid)
-        {
-            _boardGrid = boardGrid;
-        }
-
         /// <summary>
         /// Create a duplicate of this board.
         /// </summary>
@@ -331,8 +326,17 @@ namespace ConnectFourGame.Board
         public IBoard Clone()
         {
             Board board = new Board(ColumnSize, RowSize);
-            board.SetBoardGrid(_boardGrid);
+            board.SetBoardGrid((int[,])_boardGrid.Clone());
             return board;
+        }
+
+        /// <summary>
+        /// Set board grid.
+        /// </summary>
+        /// <param name="boardGrid">Board grid to set.</param>
+        private void SetBoardGrid(int[,] boardGrid)
+        {
+            _boardGrid = boardGrid;
         }
     }
 }

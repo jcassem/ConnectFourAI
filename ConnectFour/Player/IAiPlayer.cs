@@ -15,11 +15,25 @@ namespace ConnectFourGame.Player
         int PickNextMoveColumn(IBoard board);
 
         /// <summary>
+        /// Get the column with the highest score.
+        /// </summary>
+        /// <param name="board">Game board.</param>
+        /// <returns>Score of the column choice as players next move.</returns>
+        int GetHighestScoringColumnIndex(IBoard board);
+
+        /// <summary>
+        /// Get the players self defined score of the current state of the board.
+        /// </summary>
+        /// <param name="board">Game board.</param>
+        /// <returns>Score of the board.</returns>
+        long GetBoardScore(IBoard board);
+
+        /// <summary>
         /// Get the players self defined score of a column index as its next move.
         /// </summary>
         /// <param name="board">Game board.</param>
-        /// <param name="columnIndex">Column index.</param>
+        /// <param name="columnIndexForPotentialMove">Column index for next potential move.</param>
         /// <returns>Score of the column choice as players next move.</returns>
-        long GetColumnScore(IBoard board, int columnIndex);
+        long GetColumnScoreAfterPotentialMove(IBoard board, int columnIndexForPotentialMove);
     }
 }

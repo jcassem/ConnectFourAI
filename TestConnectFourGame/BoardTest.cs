@@ -98,5 +98,17 @@ namespace TestConnectFourGame
             }
             Assert.IsFalse(board.IsFull());
         }
+
+        /// <summary>
+        /// Test board clone method.
+        /// </summary>
+        [TestMethod]
+        public void BoardCloneTest()
+        {
+            IBoard board = BoardCreator.GetBoardWithVerticalLine(4);
+            IBoard clonedBoard = board.Clone();
+            clonedBoard.AddPiece(new GameMove(BoardCreator.PlayerTwoGamePiece, 0));
+            Assert.AreNotEqual(board.GetBoard(), clonedBoard.GetBoard());
+        }
     }
 }

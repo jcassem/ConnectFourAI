@@ -16,17 +16,29 @@ namespace ConnectFourGame
 
         private readonly Player.IPlayer _playerOne;
         private readonly Player.IPlayer _playerTwo;
-        private readonly Board.Board _board;
+        public readonly Board.Board Board;
 
         private bool _playerOneNext;
         private Point _lastMove;
+
+        public WinningPlayer Winner = WinningPlayer.NoWinners;
+
+        /// <summary>
+        /// Winning player options.
+        /// </summary>
+        public enum WinningPlayer
+        {
+            PlayerOneWins,
+            PlayerTwoWins,
+            NoWinners
+        }
 
         /// <summary>
         /// Constructor to set up connect four game.
         /// </summary>
         public ConnectFourGame(Player.IPlayer playerOne, Player.IPlayer playerTwo)
         {
-            _board = new Board.Board(DefaultBoardColumns, DefaultBoardRows);
+            Board = new Board.Board(DefaultBoardColumns, DefaultBoardRows);
 
             _playerOne = playerOne;
             _playerTwo = playerTwo;
@@ -46,7 +58,7 @@ namespace ConnectFourGame
                 // Console.Clear();
                 PlayNextMove();
 
-                if (_board.IsFull())
+                if (Board.IsFull())
                 {
                     gameOver = true;
                     if (displayGame)
@@ -54,12 +66,15 @@ namespace ConnectFourGame
                         Console.WriteLine("Board is full");
                     }
                 }
-                else if (_board.HasConnectFour(_lastMove))
+                else if (Board.HasConnectFour(_lastMove))
                 {
                     gameOver = true;
+                    Winner = _playerOneNext ? WinningPlayer.PlayerTwoWins : WinningPlayer.PlayerOneWins;
+
                     if (displayGame)
                     {
-                        Console.WriteLine("Player wins");
+                        var winningPlayer = Winner == WinningPlayer.PlayerOneWins ? "Player One" : "Player Two";
+                        Console.WriteLine($"{winningPlayer} wins");
                     }
                 }
 
@@ -76,15 +91,7 @@ namespace ConnectFourGame
         /// </summary>
         public void PlayNextMove()
         {
-            if (_playerOneNext)
-            {
-                _lastMove = _playerOne.MakeMove(_board);
-            }
-            else
-            {
-                _lastMove = _playerTwo.MakeMove(_board);
-            }
-
+            _lastMove = _playerOneNext ? _playerOne.MakeMove(Board) : _playerTwo.MakeMove(Board);
             _playerOneNext = !_playerOneNext;
         }
 
@@ -97,13 +104,13 @@ namespace ConnectFourGame
             string printedBoard = "";
             string printedRow = "";
 
-            for (int row = _board.GetRowCount() - 1; row >= 0; row--)
+            for (int row = Board.GetRowCount() - 1; row >= 0; row--)
             {
                 printedRow = $"{row}: > ";
-                for (int col = 0; col < _board.GetColumnCount(); col++)
+                for (int col = 0; col < Board.GetColumnCount(); col++)
                 {
-                    var gamePiece = _board.GetBoard()[col, row].Equals(PlayerOneGamePiece) ? "X"
-                        : _board.GetBoard()[col, row].Equals(PlayerTwoGamePiece) ? "O"
+                    var gamePiece = Board.GetBoard()[col, row].Equals(PlayerOneGamePiece) ? "X"
+                        : Board.GetBoard()[col, row].Equals(PlayerTwoGamePiece) ? "O"
                         : " ";
                     printedRow += gamePiece + " | ";
                 }
@@ -112,7 +119,7 @@ namespace ConnectFourGame
 
             printedBoard += "    ^" + new String('^', printedRow.Length - 5) + "\n";
             printedBoard += "     ";
-            for (int col = 0; col < _board.GetColumnCount(); col++)
+            for (int col = 0; col < Board.GetColumnCount(); col++)
             {
                 printedBoard += $"{col} | ";
             }
