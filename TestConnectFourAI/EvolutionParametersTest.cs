@@ -21,7 +21,8 @@ namespace TestConnectFourAI
 
         public const int ChildMutationPercentage = 10;
 
-        public const int ElitismPercentage = 5;
+        public const int ElitismSelectedPercentage = 5;
+        public const int ElitismPoolSizePercentage = 8;
 
         public const int ScoreConnectTwoMin = 2;
         public const int ScoreConnectTwoMax = 20;
@@ -41,7 +42,7 @@ namespace TestConnectFourAI
         public const int GiveScoreConnectFourMin = -4;
         public const int GiveScoreConnectFourMax = -40;
 
-        public string EvolutionParamterJson = $"{{   \"populationSize\": {PopulationSize},   \"iterations\": {Iterations},   \"roundEvaluation\": \"{RoundEvaluation}\",   \"parentSelectionPercentage\": {ParentSelectionPercentage},   \"childMutationPercentage\": {ChildMutationPercentage},   \"elitismPercentage\": {ElitismPercentage},   \"candidateScoreParameters\": [     {{       \"scoreType\": \"ScoreConnectTwo\",       \"min\": {ScoreConnectTwoMin},       \"max\": {ScoreConnectTwoMax}     }},     {{       \"scoreType\": \"ScoreConnectThree\",       \"min\": {ScoreConnectThreeMin},       \"max\": {ScoreConnectThreeMax}     }},     {{       \"scoreType\": \"ScoreConnectFour\",       \"min\": {ScoreConnectFourMin},       \"max\": {ScoreConnectFourMax}     }},     {{       \"scoreType\": \"GiveConnectTwo\",       \"min\": {GiveScoreConnectTwoMin},       \"max\": {GiveScoreConnectTwoMax}     }},     {{       \"scoreType\": \"GiveConnectThree\",       \"min\": {GiveScoreConnectThreeMin},       \"max\": {GiveScoreConnectThreeMax}     }},     {{       \"scoreType\": \"GiveConnectFour\",       \"min\": {GiveScoreConnectFourMin},       \"max\": {GiveScoreConnectFourMax}     }}   ] }}";
+        public string EvolutionParamterJson = $"{{   \"populationSize\": {PopulationSize},   \"iterations\": {Iterations},   \"roundEvaluation\": \"{RoundEvaluation}\",   \"parentSelectionPercentage\": {ParentSelectionPercentage},   \"childMutationPercentage\": {ChildMutationPercentage},   \"elitismSelectedPercentage\": {ElitismSelectedPercentage},   \"elitismPoolSizePercentage\": {ElitismPoolSizePercentage},   \"candidateScoreParameters\": [     {{       \"scoreType\": \"ScoreConnectTwo\",       \"min\": {ScoreConnectTwoMin},       \"max\": {ScoreConnectTwoMax}     }},     {{       \"scoreType\": \"ScoreConnectThree\",       \"min\": {ScoreConnectThreeMin},       \"max\": {ScoreConnectThreeMax}     }},     {{       \"scoreType\": \"ScoreConnectFour\",       \"min\": {ScoreConnectFourMin},       \"max\": {ScoreConnectFourMax}     }},     {{       \"scoreType\": \"GiveConnectTwo\",       \"min\": {GiveScoreConnectTwoMin},       \"max\": {GiveScoreConnectTwoMax}     }},     {{       \"scoreType\": \"GiveConnectThree\",       \"min\": {GiveScoreConnectThreeMin},       \"max\": {GiveScoreConnectThreeMax}     }},     {{       \"scoreType\": \"GiveConnectFour\",       \"min\": {GiveScoreConnectFourMin},       \"max\": {GiveScoreConnectFourMax}     }}   ] }}";
 
         /// <summary>
         /// Test loading evolution parameters from json to object.
@@ -56,7 +57,8 @@ namespace TestConnectFourAI
             Assert.AreEqual(RoundEval, parameters.RoundEvaluation);
             Assert.AreEqual(ParentSelectionPercentage, parameters.ParentSelectionPercentage);
             Assert.AreEqual(ChildMutationPercentage, parameters.ChildMutationPercentage);
-            Assert.AreEqual(ElitismPercentage, parameters.ElitismPercentage);
+            Assert.AreEqual(ElitismSelectedPercentage, parameters.ElitismSelectedPercentage);
+            Assert.AreEqual(ElitismPoolSizePercentage, parameters.ElitismPoolSizePercentage);
 
             Assert.AreEqual(ScoreConnectTwoMin, parameters.GetCandidateScoreParameterMin(CandidateScoreTypes.ScoreConnectTwo));
             Assert.AreEqual(ScoreConnectTwoMax, parameters.GetCandidateScoreParameterMax(CandidateScoreTypes.ScoreConnectTwo));

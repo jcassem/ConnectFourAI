@@ -27,7 +27,8 @@ namespace ConnectFourAI
             }
 
             Console.WriteLine("Creating population");
-            IList<IAiPlayer> candidates = CreateInitialPopulation(parameters);
+            IPopulationBuilder populationBuilder = new PopulationBuilder();
+            IList<IAiPlayer> candidates = populationBuilder.CreateInitialPopulation(parameters);
             candidates = candidates.OrderBy(a => Guid.NewGuid()).ToList();
 
             Console.WriteLine("Creating matches");
@@ -56,8 +57,12 @@ namespace ConnectFourAI
                 }
             }
 
+            Console.WriteLine("Selecting Elite players");
+            int eliteSelectionSize = (int) (parameters.ElitismSelectedPercentage * parameters.PopulationSize / 100);
+            int elitePoolSize = (int) (parameters.ElitismPoolSizePercentage * parameters.PopulationSize / 100);
+            var elites = populationBuilder.SelectElitePlayers(candidates, eliteSelectionSize, elitePoolSize);
+
             // todo add functionality and loop through these until end condition has been met
-            // Console.WriteLine("Selecting elites");
             // Console.WriteLine("Selecting parents");
             // Console.WriteLine("Creating children");
             // Console.WriteLine("Creating next generation");
@@ -85,24 +90,6 @@ namespace ConnectFourAI
             }
 
             return parameters;
-        }
-
-        /// <summary>
-        /// Creates a population of AI players (candidates).
-        /// </summary>
-        /// <param name="parameters">Evolutionary algorithm parameters.</param>
-        /// <returns>List of </returns>
-        public static IList<IAiPlayer> CreateInitialPopulation(EvolutionParameters parameters)
-        {
-            IList<IAiPlayer> candidates = new List<IAiPlayer>();
-            ICandidateBuilder candidateBuilder = new CandidateBuilder();
-
-            for (int i = 0; i < parameters.PopulationSize; i++)
-            {
-                candidates.Add(candidateBuilder.BuildAiPlayer(parameters, i));
-            }
-
-            return candidates;
         }
     }
 }

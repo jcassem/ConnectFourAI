@@ -41,7 +41,7 @@ namespace ConnectFourAI.Builders
         /// Localises evolutionary parameters related to score boundaries for candidates.
         /// </summary>
         /// <param name="parameters">Evolution parameters.</param>
-        private void SetupScoreParameters(EvolutionParameters parameters)
+        private static void SetupScoreParameters(EvolutionParameters parameters)
         {
             _scoreConnectTwoMin = parameters.GetCandidateScoreParameterMin(CandidateScoreTypes.ScoreConnectTwo);
             _scoreConnectTwoMax = parameters.GetCandidateScoreParameterMax(CandidateScoreTypes.ScoreConnectTwo);

@@ -19,13 +19,16 @@ namespace ConnectFourAI.Parameters
         public RoundEvaluation RoundEvaluation { get; set; }
         
         [JsonProperty("parentSelectionPercentage")]
-        public long ParentSelectionPercentage { get; set; }
+        public float ParentSelectionPercentage { get; set; }
 
         [JsonProperty("childMutationPercentage")]
-        public int ChildMutationPercentage { get; set; }
+        public float ChildMutationPercentage { get; set; }
 
-        [JsonProperty("elitismPercentage")]
-        public int ElitismPercentage { get; set; }
+        [JsonProperty("elitismSelectedPercentage")]
+        public float ElitismSelectedPercentage { get; set; }
+
+        [JsonProperty("elitismPoolSizePercentage")]
+        public float ElitismPoolSizePercentage { get; set; }
 
         [JsonProperty("candidateScoreParameters")]
         public CandidateScoreParameter[] CandidateScoreParameters { get; set; }

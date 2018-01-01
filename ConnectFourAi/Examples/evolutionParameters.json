@@ -4,7 +4,8 @@
   "roundEvaluation": "SingleMatch",
   "parentSelectionPercentage": 10,
   "childMutationPercentage": 10,
-  "elitismPercentage": 5,
+  "elitismSelectedPercentage": 5,
+  "elitismPoolSizePercentage": 8,
   "candidateScoreParameters": [
     {
       "scoreType": "ScoreConnectTwo",

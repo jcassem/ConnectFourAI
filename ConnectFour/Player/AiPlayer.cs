@@ -177,5 +177,11 @@ namespace ConnectFourGame.Player
 
             return finalScore;
         }
+
+        /// <inheritdoc />
+        public long GetLastGameScore()
+        {
+            return LastGameScore;
+        }
     }
 }

@@ -35,5 +35,11 @@ namespace ConnectFourGame.Player
         /// <param name="columnIndexForPotentialMove">Column index for next potential move.</param>
         /// <returns>Score of the column choice as players next move.</returns>
         long GetColumnScoreAfterPotentialMove(IBoard board, int columnIndexForPotentialMove);
+
+        /// <summary>
+        /// Returns score player received from its last match.
+        /// </summary>
+        /// <returns>Last game score.</returns>
+        long GetLastGameScore();
     }
 }
